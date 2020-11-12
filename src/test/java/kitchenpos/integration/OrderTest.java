@@ -18,7 +18,7 @@ import kitchenpos.domain.Order;
 import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderStatus;
 
-class OrderRestIntegrationTest extends IntegrationTest {
+class OrderTest extends IntegrationTest {
     @Autowired
     private TableService tableService;
     @Autowired
@@ -31,26 +31,8 @@ class OrderRestIntegrationTest extends IntegrationTest {
         tableService.changeNumberOfGuests(1L, CHANGING_GUEST_ORDER_TABLE);
 
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
-        Order createdOrder = TestObjectUtils.createOrder(
+        kitchenpos.domain.Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, null, null, Collections.singletonList(orderLineItem));
-        String createOrderJson = objectMapper.writeValueAsString(createdOrder);
-
-        mockMvc.perform(
-                post("/api/orders")
-                        .content(createOrderJson)
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("id").exists())
-                .andExpect(jsonPath("orderTableId").exists())
-                .andExpect(jsonPath("orderStatus").value(OrderStatus.COOKING.name()))
-                .andExpect(jsonPath("orderedTime").exists())
-                .andExpect(jsonPath("orderLineItems[0].seq").exists())
-                .andExpect(jsonPath("orderLineItems[0].orderId").exists())
-                .andExpect(jsonPath("orderLineItems[0].menuId").value(
-                        createdOrder.getOrderLineItems().get(0).getMenuId()))
-                .andExpect(jsonPath("orderLineItems[0].quantity").value(
-                        createdOrder.getOrderLineItems().get(0).getQuantity()));
     }
 
     @DisplayName("주문의 목록을 조회할 수 있다.")
@@ -62,11 +44,6 @@ class OrderRestIntegrationTest extends IntegrationTest {
         orderService.create(TestObjectUtils.createOrder(
                 null, 1L, null, null, Collections.singletonList(orderLineItem)));
 
-        mockMvc.perform(
-                get("/api/orders")
-        )
-                .andExpect(status().isOk())
-                .andReturn();
     }
 
     @DisplayName("주문 상태를 변경할 수 있다.")
@@ -75,19 +52,10 @@ class OrderRestIntegrationTest extends IntegrationTest {
         tableService.changeEmpty(1L, CHANGING_NOT_EMPTY_ORDER_TABLE);
         tableService.changeNumberOfGuests(1L, CHANGING_GUEST_ORDER_TABLE);
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
-        Order order = TestObjectUtils.createOrder(
+        kitchenpos.domain.Order order = TestObjectUtils.createOrder(
                 null, 1L, null, null, Collections.singletonList(orderLineItem));
-        Order changedOrder = orderService.create(order);
-        Order changingOrder = TestObjectUtils.createOrder(null, null, OrderStatus.MEAL.name(), null,
+        kitchenpos.domain.Order changedOrder = orderService.create(order);
+        kitchenpos.domain.Order changingOrder = TestObjectUtils.createOrder(null, null, OrderStatus.MEAL.name(), null,
                 null);
-        String changingOrderJson = objectMapper.writeValueAsString(changingOrder);
-
-        mockMvc.perform(
-                put("/api/orders/{orderId}/order-status", changedOrder.getId())
-                        .content(changingOrderJson)
-                        .contentType(MediaType.APPLICATION_JSON)
-        )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("orderStatus").value(OrderStatus.MEAL.name()));
     }
 }
