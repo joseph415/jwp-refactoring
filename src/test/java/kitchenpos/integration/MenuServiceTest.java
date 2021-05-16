@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.application.MenuService;
 import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.MenuDao;
 import kitchenpos.dao.MenuGroupDao;
 import kitchenpos.dao.ProductDao;
 import kitchenpos.domain.Menu;
@@ -22,6 +23,8 @@ class MenuServiceTest extends IntegrationTest {
 
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private MenuDao menuDao;
     @Autowired
     private MenuGroupDao menuGroupDao;
     @Autowired
@@ -66,7 +69,7 @@ class MenuServiceTest extends IntegrationTest {
         MenuProduct SeasoningChicken =
                 TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
 
-        menuService.create(TestObjectUtils.createMenu(null, "두마리치킨",
+        menuDao.save(TestObjectUtils.createMenu(null, "두마리치킨",
                 BigDecimal.valueOf(16000), 1L,
                 Arrays.asList(friedChicken, SeasoningChicken)));
 

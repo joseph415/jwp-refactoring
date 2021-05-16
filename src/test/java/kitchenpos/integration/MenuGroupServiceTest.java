@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.application.MenuGroupService;
 import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.MenuGroupDao;
 import kitchenpos.domain.MenuGroup;
 
 class MenuGroupServiceTest extends IntegrationTest {
     @Autowired
     private MenuGroupService menuGroupService;
+    @Autowired
+    private MenuGroupDao menuGroupDao;
 
     @DisplayName("메뉴 그룹을 등록할 수 있다.")
     @Test
@@ -32,8 +35,8 @@ class MenuGroupServiceTest extends IntegrationTest {
     @DisplayName("메뉴 그룹의 목록을 조회할 수 있다.")
     @Test
     void should_returnMenuGroupList() {
-        menuGroupService.create(TestObjectUtils.createMenuGroup(null, "한마리메뉴"));
-
+        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "한마리메뉴"));
+        
         List<MenuGroup> menuGroups = menuGroupService.list();
 
         assertThat(menuGroups.size()).isEqualTo(1);
