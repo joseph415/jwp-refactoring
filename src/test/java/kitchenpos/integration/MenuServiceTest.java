@@ -39,12 +39,12 @@ class MenuServiceTest extends IntegrationTest {
 
         MenuProduct friedChicken =
                 TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);
-        MenuProduct SeasoningChicken =
+        MenuProduct seasoningChicken =
                 TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
 
         Menu createMenu = TestObjectUtils.createMenu(null, "두마리치킨",
                 BigDecimal.valueOf(16000), 1L,
-                Arrays.asList(friedChicken, SeasoningChicken));
+                Arrays.asList(friedChicken, seasoningChicken));
 
         final Menu menu = menuService.create(createMenu);
 

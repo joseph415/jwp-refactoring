@@ -35,7 +35,8 @@ public class OrderFixture {
             Collections.singletonList(ORDER_LINE_ITEM3)
     );
 
-    public static final Order CHANGING_MEAL_ORDER = TestObjectUtils.createOrder(
+    public static final Order
+            CHANGING_MEAL_ORDER = TestObjectUtils.createOrder(
             null,
             null,
             OrderStatus.MEAL.name(),
