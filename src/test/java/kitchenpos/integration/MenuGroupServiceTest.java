@@ -36,6 +36,6 @@ class MenuGroupServiceTest extends IntegrationTest {
 
         List<MenuGroup> menuGroups = menuGroupService.list();
 
-        assertThat(menuGroups.size()).isEqualTo(5);
+        assertThat(menuGroups.size()).isEqualTo(1);
     }
 }
