@@ -15,7 +15,7 @@ import kitchenpos.integration.IntegrationTest;
 import kitchenpos.product.application.ProductService;
 import kitchenpos.product.domain.Product;
 import kitchenpos.product.domain.ProductDao;
-import kitchenpos.product.ui.ProductRequest;
+import kitchenpos.product.ui.dto.ProductRequest;
 
 class ProductServiceTest extends IntegrationTest {
 

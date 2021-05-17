@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kitchenpos.product.domain.Product;
 import kitchenpos.product.domain.ProductDao;
-import kitchenpos.product.ui.ProductRequest;
+import kitchenpos.product.ui.dto.ProductRequest;
 
 @Service
 public class ProductService {
