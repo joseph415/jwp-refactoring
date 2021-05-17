@@ -13,6 +13,7 @@ import kitchenpos.application.MenuGroupService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuGroupDao;
 import kitchenpos.domain.MenuGroup;
+import kitchenpos.ui.dto.MenuGroupRequest;
 
 class MenuGroupServiceTest extends IntegrationTest {
     @Autowired
@@ -23,9 +24,9 @@ class MenuGroupServiceTest extends IntegrationTest {
     @DisplayName("메뉴 그룹을 등록할 수 있다.")
     @Test
     void should_givenMenuGroup_createMenuGroup() {
-        MenuGroup createMenuGroup = TestObjectUtils.createMenuGroup(null, "두마리메뉴");
+        MenuGroupRequest menuGroupRequest = new MenuGroupRequest("두마리메뉴");
 
-        final MenuGroup menuGroup = menuGroupService.create(createMenuGroup);
+        final MenuGroup menuGroup = menuGroupService.create(menuGroupRequest);
         assertAll(
                 () -> assertThat(menuGroup.getId()).isNotNull(),
                 () -> assertThat(menuGroup.getName()).isEqualTo("두마리메뉴")
@@ -36,7 +37,7 @@ class MenuGroupServiceTest extends IntegrationTest {
     @Test
     void should_returnMenuGroupList() {
         menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "한마리메뉴"));
-        
+
         List<MenuGroup> menuGroups = menuGroupService.list();
 
         assertThat(menuGroups.size()).isEqualTo(1);
