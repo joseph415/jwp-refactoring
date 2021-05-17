@@ -1,5 +1,6 @@
 package kitchenpos.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +11,13 @@ public class MenuProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
+
+    @Column(name = "menu_id")
     private Long menuId;
+
+    @Column(name = "product_id")
     private Long productId;
+
     private long quantity;
 
     public Long getSeq() {
