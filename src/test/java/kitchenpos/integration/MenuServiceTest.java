@@ -15,9 +15,9 @@ import kitchenpos.MenuGroup.domain.MenuGroupDao;
 import kitchenpos.application.MenuService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.ProductDao;
 import kitchenpos.domain.Menu;
 import kitchenpos.domain.MenuProduct;
+import kitchenpos.product.domain.ProductDao;
 
 class MenuServiceTest extends IntegrationTest {
 

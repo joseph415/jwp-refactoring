@@ -12,8 +12,8 @@ import kitchenpos.domain.MenuProduct;
 import kitchenpos.domain.Order;
 import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderTable;
-import kitchenpos.domain.Product;
 import kitchenpos.domain.TableGroup;
+import kitchenpos.product.domain.Product;
 
 public class TestObjectUtils {
     private TestObjectUtils() {
