@@ -1,4 +1,4 @@
-package kitchenpos.MenuGroup.infra;
+package kitchenpos.menugroup.infra;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import kitchenpos.MenuGroup.domain.MenuGroup;
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.domain.MenuGroup;
+import kitchenpos.menugroup.domain.MenuGroupDao;
 
 @Repository
 public class JdbcTemplateMenuGroupDao implements MenuGroupDao {

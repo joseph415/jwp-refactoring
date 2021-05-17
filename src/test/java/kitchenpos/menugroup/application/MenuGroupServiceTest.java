@@ -1,4 +1,4 @@
-package kitchenpos.application;
+package kitchenpos.menugroup.application;
 
 import static kitchenpos.fixture.MenuGroupFixture.*;
 import static org.assertj.core.api.Assertions.*;
@@ -14,10 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.MenuGroup.application.MenuGroupService;
-import kitchenpos.MenuGroup.domain.MenuGroup;
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
-import kitchenpos.MenuGroup.ui.dto.MenuGroupRequest;
+import kitchenpos.menugroup.application.MenuGroupService;
+import kitchenpos.menugroup.domain.MenuGroup;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
 
 @ExtendWith(MockitoExtension.class)
 class MenuGroupServiceTest {

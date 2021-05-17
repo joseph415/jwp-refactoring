@@ -1,4 +1,4 @@
-package kitchenpos.integration;
+package kitchenpos.menugroup.integration;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,11 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.MenuGroup.application.MenuGroupService;
-import kitchenpos.MenuGroup.domain.MenuGroup;
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
-import kitchenpos.MenuGroup.ui.dto.MenuGroupRequest;
 import kitchenpos.common.TestObjectUtils;
+import kitchenpos.integration.IntegrationTest;
+import kitchenpos.menugroup.application.MenuGroupService;
+import kitchenpos.menugroup.domain.MenuGroup;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
 
 class MenuGroupServiceTest extends IntegrationTest {
     @Autowired

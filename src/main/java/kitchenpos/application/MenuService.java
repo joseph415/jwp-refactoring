@@ -8,11 +8,11 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
 import kitchenpos.dao.MenuDao;
 import kitchenpos.dao.MenuProductDao;
 import kitchenpos.domain.Menu;
 import kitchenpos.domain.MenuProduct;
+import kitchenpos.menugroup.domain.MenuGroupDao;
 import kitchenpos.product.domain.Product;
 import kitchenpos.product.domain.ProductDao;
 

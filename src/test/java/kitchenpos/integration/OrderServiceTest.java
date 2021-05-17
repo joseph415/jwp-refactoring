@@ -13,7 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
 import kitchenpos.application.OrderService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
@@ -25,6 +24,7 @@ import kitchenpos.domain.Order;
 import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderStatus;
 import kitchenpos.fixture.OrderFixture;
+import kitchenpos.menugroup.domain.MenuGroupDao;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired

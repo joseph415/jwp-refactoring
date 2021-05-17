@@ -19,11 +19,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.MenuGroup.domain.MenuGroupDao;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
 import kitchenpos.dao.MenuProductDao;
 import kitchenpos.domain.Menu;
+import kitchenpos.menugroup.domain.MenuGroupDao;
 import kitchenpos.product.domain.ProductDao;
 
 @ExtendWith(MockitoExtension.class)
