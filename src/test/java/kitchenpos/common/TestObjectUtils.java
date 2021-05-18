@@ -1,9 +1,13 @@
 package kitchenpos.common;
 
-import kitchenpos.domain.*;
+import kitchenpos.domain.Order;
+import kitchenpos.domain.OrderLineItem;
+import kitchenpos.domain.OrderTable;
+import kitchenpos.domain.TableGroup;
+import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menugroup.domain.MenuGroup;
-import kitchenpos.menuproduct.domian.MenuProduct;
-import kitchenpos.product.command.domain.Product;
+import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
+import kitchenpos.menu.command.domain.product.Product;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;

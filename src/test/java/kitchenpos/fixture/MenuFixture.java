@@ -1,14 +1,15 @@
 package kitchenpos.fixture;
 
-import static kitchenpos.fixture.MenuProductFixture.*;
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.menu.command.domain.menu.Menu;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.Menu;
+import static kitchenpos.fixture.MenuProductFixture.MENU_PRODUCT1;
+import static kitchenpos.fixture.MenuProductFixture.MENU_PRODUCT2;
 
 public class MenuFixture {
     public static final Menu MENU1 = TestObjectUtils.createMenu(1L, "후라이드치킨",

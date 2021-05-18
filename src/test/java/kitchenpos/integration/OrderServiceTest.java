@@ -1,7 +1,20 @@
 package kitchenpos.integration;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import kitchenpos.application.OrderService;
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.OrderDao;
+import kitchenpos.dao.OrderTableDao;
+import kitchenpos.domain.Order;
+import kitchenpos.domain.OrderLineItem;
+import kitchenpos.domain.OrderStatus;
+import kitchenpos.fixture.OrderFixture;
+import kitchenpos.menu.command.domain.menu.Menu;
+import kitchenpos.menu.command.domain.menu.MenuDao;
+import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,22 +22,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import kitchenpos.application.OrderService;
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.Menu;
-import kitchenpos.menuproduct.domian.MenuProduct;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderStatus;
-import kitchenpos.fixture.OrderFixture;
-import kitchenpos.menugroup.domain.MenuGroupDao;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired

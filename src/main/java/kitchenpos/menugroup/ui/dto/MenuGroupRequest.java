@@ -1,8 +1,8 @@
 package kitchenpos.menugroup.ui.dto;
 
-import javax.validation.constraints.NotBlank;
-
 import kitchenpos.menugroup.domain.MenuGroup;
+
+import javax.validation.constraints.NotBlank;
 
 public class MenuGroupRequest {
 

@@ -1,15 +1,13 @@
 package kitchenpos.application;
 
-import static kitchenpos.fixture.OrderFixture.*;
-import static kitchenpos.fixture.OrderLineItemFixture.*;
-import static kitchenpos.fixture.OrderTableFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.util.Collections;
-import java.util.Optional;
-
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.OrderDao;
+import kitchenpos.dao.OrderLineItemDao;
+import kitchenpos.dao.OrderTableDao;
+import kitchenpos.domain.Order;
+import kitchenpos.domain.OrderLineItem;
+import kitchenpos.domain.OrderStatus;
+import kitchenpos.menu.command.domain.menu.MenuDao;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,14 +15,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderLineItemDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderStatus;
+import java.util.Collections;
+import java.util.Optional;
+
+import static kitchenpos.fixture.OrderFixture.*;
+import static kitchenpos.fixture.OrderLineItemFixture.ORDER_LINE_ITEM1;
+import static kitchenpos.fixture.OrderLineItemFixture.ORDER_LINE_ITEMS3;
+import static kitchenpos.fixture.OrderTableFixture.ORDER_TABLE1;
+import static kitchenpos.fixture.OrderTableFixture.ORDER_TABLE5;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {

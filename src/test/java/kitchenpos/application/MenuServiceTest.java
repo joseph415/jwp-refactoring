@@ -1,11 +1,12 @@
 package kitchenpos.application;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.MenuDao;
-import kitchenpos.domain.Menu;
+import kitchenpos.menu.command.application.MenuService;
+import kitchenpos.menu.command.domain.menu.Menu;
+import kitchenpos.menu.command.domain.menu.MenuDao;
+import kitchenpos.menu.command.domain.menuproduct.MenuProductDao;
+import kitchenpos.menu.command.domain.product.ProductRepository;
 import kitchenpos.menugroup.domain.MenuGroupDao;
-import kitchenpos.menuproduct.domian.MenuProductDao;
-import kitchenpos.product.command.domain.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

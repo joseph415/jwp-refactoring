@@ -1,7 +1,7 @@
 package kitchenpos.fixture;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.product.command.domain.Product;
+import kitchenpos.menu.command.domain.product.Product;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
