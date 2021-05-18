@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import kitchenpos.application.MenuService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.MenuGroupDao;
-import kitchenpos.dao.ProductDao;
 import kitchenpos.domain.Menu;
 import kitchenpos.domain.MenuProduct;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.product.domain.ProductDao;
 
 class MenuServiceTest extends IntegrationTest {
 

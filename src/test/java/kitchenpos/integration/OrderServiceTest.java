@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import kitchenpos.application.OrderService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.MenuGroupDao;
 import kitchenpos.dao.OrderDao;
 import kitchenpos.dao.OrderTableDao;
 import kitchenpos.domain.Menu;
@@ -25,6 +24,7 @@ import kitchenpos.domain.Order;
 import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderStatus;
 import kitchenpos.fixture.OrderFixture;
+import kitchenpos.menugroup.domain.MenuGroupDao;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired

@@ -21,10 +21,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.MenuGroupDao;
 import kitchenpos.dao.MenuProductDao;
-import kitchenpos.dao.ProductDao;
 import kitchenpos.domain.Menu;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.product.domain.ProductDao;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceTest {

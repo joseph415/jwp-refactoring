@@ -1,4 +1,4 @@
-package kitchenpos.integration;
+package kitchenpos.product.integration;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,12 +10,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.application.ProductService;
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.ProductDao;
-import kitchenpos.domain.Product;
+import kitchenpos.integration.IntegrationTest;
+import kitchenpos.product.application.ProductService;
+import kitchenpos.product.domain.Product;
+import kitchenpos.product.domain.ProductDao;
+import kitchenpos.product.ui.dto.ProductRequest;
 
-class ProductTest extends IntegrationTest {
+class ProductServiceTest extends IntegrationTest {
 
     @Autowired
     private ProductService productService;
@@ -25,10 +27,8 @@ class ProductTest extends IntegrationTest {
     @DisplayName("상품을 등록할 수 있다.")
     @Test
     void createTest() {
-
-        Product createdProduct = TestObjectUtils.createProduct(null, "참치뱃살",
-                BigDecimal.valueOf(30000));
-        final Product product = productService.create(createdProduct);
+        ProductRequest productRequest = new ProductRequest("참치뱃살", 30000);
+        final Product product = productService.create(productRequest);
 
         assertAll(
                 () -> assertThat(product.getId()).isNotNull(),
