@@ -6,7 +6,7 @@ import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menu.command.domain.menu.MenuDao;
 import kitchenpos.menu.command.domain.menuproduct.MenuProductDao;
 import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.domain.MenuGroupRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,7 +33,7 @@ class MenuServiceTest {
     @Mock
     private MenuDao menuDao;
     @Mock
-    private MenuGroupDao menuGroupDao;
+    private MenuGroupRepository menuGroupRepository;
     @Mock
     private MenuProductDao menuProductDao;
     @Mock
@@ -48,7 +48,7 @@ class MenuServiceTest {
         Menu createdMenu = TestObjectUtils.createMenu(null, "후라이드치킨",
                 BigDecimal.valueOf(16000), 2L, Collections.singletonList(MENU_PRODUCT1));
 
-        when(menuGroupDao.existsById(anyLong())).thenReturn(true);
+        when(menuGroupRepository.existsById(anyLong())).thenReturn(true);
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(FRIED_CHICKEN));
         when(menuDao.save(any())).thenReturn(MENU1);
         when(menuProductDao.save(any())).thenReturn(MENU_PRODUCT1);
@@ -83,7 +83,7 @@ class MenuServiceTest {
     @DisplayName("메뉴는 특정 메뉴 그룹에 속하지 않을 경우 에러.")
     @Test
     void notCreateMenu_when_notExist() {
-        when(menuGroupDao.existsById(anyLong())).thenReturn(false);
+        when(menuGroupRepository.existsById(anyLong())).thenReturn(false);
 
         assertThatThrownBy(() -> menuService.create(MENU1))
                 .isInstanceOf(IllegalArgumentException.class);

@@ -1,7 +1,9 @@
 package kitchenpos.menugroup.ui;
 
 import kitchenpos.menugroup.application.MenuGroupService;
-import kitchenpos.menugroup.domain.MenuGroup;
+import kitchenpos.menugroup.query.MenuGroupDao;
+import kitchenpos.menugroup.query.dto.MenuGroupResponse;
+import kitchenpos.menugroup.query.dto.MenuGroupResponses;
 import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,30 +13,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 public class MenuGroupRestController {
-    private final MenuGroupService menuGroupService;
 
-    public MenuGroupRestController(final MenuGroupService menuGroupService) {
+    private final MenuGroupService menuGroupService;
+    private final MenuGroupDao menuGroupRepository;
+
+    public MenuGroupRestController(MenuGroupService menuGroupService, MenuGroupDao menuGroupRepository) {
         this.menuGroupService = menuGroupService;
+        this.menuGroupRepository = menuGroupRepository;
     }
 
     @PostMapping("/api/menu-groups")
-    public ResponseEntity<MenuGroup> create(
+    public ResponseEntity<MenuGroupResponse> create(
             @RequestBody @Valid final MenuGroupRequest menuGroupRequest) {
-        final MenuGroup created = menuGroupService.create(menuGroupRequest);
-        final URI uri = URI.create("/api/menu-groups/" + created.getId());
+        final MenuGroupResponse menuGroupResponse = menuGroupService.create(menuGroupRequest);
+        final URI uri = URI.create("/api/menu-groups/" + menuGroupResponse.getId());
+
         return ResponseEntity.created(uri)
-                .body(created)
-                ;
+                .body(menuGroupResponse);
     }
 
     @GetMapping("/api/menu-groups")
-    public ResponseEntity<List<MenuGroup>> list() {
+    public ResponseEntity<MenuGroupResponses> list() {
         return ResponseEntity.ok()
-                .body(menuGroupService.list())
+                .body(menuGroupRepository.select())
                 ;
     }
 }

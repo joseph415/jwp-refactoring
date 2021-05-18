@@ -11,7 +11,7 @@ import kitchenpos.fixture.OrderFixture;
 import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menu.command.domain.menu.MenuDao;
 import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
-import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.domain.MenuGroupRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ class OrderServiceTest extends IntegrationTest {
     @Autowired
     private OrderTableDao orderTableDao;
     @Autowired
-    private MenuGroupDao menuGroupDao;
+    private MenuGroupRepository menuGroupRepository;
     @Autowired
     private MenuDao menuDao;
     @Autowired
@@ -49,7 +49,7 @@ class OrderServiceTest extends IntegrationTest {
                 1L, Arrays.asList(friedChicken, seasoningChicken));
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
 
-        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuDao.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
 
@@ -80,7 +80,7 @@ class OrderServiceTest extends IntegrationTest {
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
-        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuDao.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         orderDao.save(createdOrder);
@@ -105,7 +105,7 @@ class OrderServiceTest extends IntegrationTest {
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
-        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuDao.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         final Order order = orderDao.save(createdOrder);

@@ -19,6 +19,6 @@ public class ProductService {
     public ProductResponse create(final ProductRequest productRequest) {
         final Product product = productRepository.save(productRequest.toEntity());
 
-        return ProductResponse.of(product);
+        return ProductResponse.from(product);
     }
 }

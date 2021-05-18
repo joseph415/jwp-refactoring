@@ -19,7 +19,9 @@ public class JpaProductDao implements ProductDao {
 
     @Override
     public ProductResponse selectById(Long id) {
-        String selectById = "select new kitchenpos.menu.query.dto.ProductResponse(p.id,p.name,p.price) from Product p where p.id = (:id)";
+        String selectById = "select new kitchenpos.menu.query.dto.ProductResponse(p.id,p.name,p.price)" +
+                " from Product p" +
+                " where p.id = (:id)";
 
         return entityManager.createQuery(selectById, ProductResponse.class)
                 .setParameter("id", id)

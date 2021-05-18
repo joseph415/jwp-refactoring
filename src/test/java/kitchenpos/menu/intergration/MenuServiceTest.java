@@ -7,7 +7,7 @@ import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menu.command.domain.menu.MenuDao;
 import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
 import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menugroup.domain.MenuGroupRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +26,14 @@ class MenuServiceTest extends IntegrationTest {
     @Autowired
     private MenuDao menuDao;
     @Autowired
-    private MenuGroupDao menuGroupDao;
+    private MenuGroupRepository menuGroupRepository;
     @Autowired
     private ProductRepository productRepository;
 
     @DisplayName("1 개 이상의 등록된 상품으로 메뉴를 등록할 수 있다.")
     @Test
     void should_givenMenuProduct_createMenu() {
-        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         productRepository.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
         productRepository.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
 
@@ -60,7 +60,7 @@ class MenuServiceTest extends IntegrationTest {
     @DisplayName("메뉴의 목록을 조회할 수 있다.")
     @Test
     void listTest() {
-        menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         productRepository.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
         productRepository.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
 
