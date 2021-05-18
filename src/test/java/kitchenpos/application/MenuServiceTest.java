@@ -1,17 +1,11 @@
 package kitchenpos.application;
 
-import static kitchenpos.fixture.MenuFixture.*;
-import static kitchenpos.fixture.MenuProductFixture.*;
-import static kitchenpos.fixture.ProductFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.MenuDao;
+import kitchenpos.domain.Menu;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menuproduct.domian.MenuProductDao;
+import kitchenpos.product.command.domain.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,12 +13,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.MenuProductDao;
-import kitchenpos.domain.Menu;
-import kitchenpos.menugroup.domain.MenuGroupDao;
-import kitchenpos.product.domain.ProductDao;
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static kitchenpos.fixture.MenuFixture.*;
+import static kitchenpos.fixture.MenuProductFixture.MENU_PRODUCT1;
+import static kitchenpos.fixture.ProductFixture.FRIED_CHICKEN;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceTest {
@@ -36,7 +36,7 @@ class MenuServiceTest {
     @Mock
     private MenuProductDao menuProductDao;
     @Mock
-    private ProductDao productDao;
+    private ProductRepository productRepository;
 
     @InjectMocks
     private MenuService menuService;
@@ -48,7 +48,7 @@ class MenuServiceTest {
                 BigDecimal.valueOf(16000), 2L, Collections.singletonList(MENU_PRODUCT1));
 
         when(menuGroupDao.existsById(anyLong())).thenReturn(true);
-        when(productDao.findById(anyLong())).thenReturn(Optional.of(FRIED_CHICKEN));
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(FRIED_CHICKEN));
         when(menuDao.save(any())).thenReturn(MENU1);
         when(menuProductDao.save(any())).thenReturn(MENU_PRODUCT1);
 

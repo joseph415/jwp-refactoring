@@ -1,38 +1,37 @@
 package kitchenpos.application;
 
+import kitchenpos.dao.MenuDao;
+import kitchenpos.domain.Menu;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menuproduct.domian.MenuProduct;
+import kitchenpos.menuproduct.domian.MenuProductDao;
+import kitchenpos.product.command.domain.Product;
+import kitchenpos.product.command.domain.ProductRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import kitchenpos.dao.MenuDao;
-import kitchenpos.dao.MenuProductDao;
-import kitchenpos.domain.Menu;
-import kitchenpos.domain.MenuProduct;
-import kitchenpos.menugroup.domain.MenuGroupDao;
-import kitchenpos.product.domain.Product;
-import kitchenpos.product.domain.ProductDao;
 
 @Service
 public class MenuService {
     private final MenuDao menuDao;
     private final MenuGroupDao menuGroupDao;
     private final MenuProductDao menuProductDao;
-    private final ProductDao productDao;
+    private final ProductRepository productRepository;
 
     public MenuService(
             final MenuDao menuDao,
             final MenuGroupDao menuGroupDao,
             final MenuProductDao menuProductDao,
-            final ProductDao productDao
+            final ProductRepository productRepository
     ) {
         this.menuDao = menuDao;
         this.menuGroupDao = menuGroupDao;
         this.menuProductDao = menuProductDao;
-        this.productDao = productDao;
+        this.productRepository = productRepository;
     }
 
     @Transactional
@@ -51,7 +50,7 @@ public class MenuService {
 
         BigDecimal sum = BigDecimal.ZERO;
         for (final MenuProduct menuProduct : menuProducts) {
-            final Product product = productDao.findById(menuProduct.getProductId())
+            final Product product = productRepository.findById(menuProduct.getProductId())
                     .orElseThrow(IllegalArgumentException::new);
             sum = sum.add(
                     product.getPrice().multiply(BigDecimal.valueOf(menuProduct.getQuantity())));

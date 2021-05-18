@@ -1,11 +1,10 @@
 package kitchenpos.product.ui.dto;
 
-import java.math.BigDecimal;
+import kitchenpos.product.command.domain.Product;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
-
-import kitchenpos.product.domain.Product;
+import java.math.BigDecimal;
 
 public class ProductRequest {
 

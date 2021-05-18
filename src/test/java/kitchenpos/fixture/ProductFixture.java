@@ -1,11 +1,11 @@
 package kitchenpos.fixture;
 
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.product.command.domain.Product;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.product.domain.Product;
 
 public class ProductFixture {
     public static final Product FRIED_CHICKEN = TestObjectUtils.createProduct(1L, "후라이드",

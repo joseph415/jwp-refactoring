@@ -1,19 +1,14 @@
 package kitchenpos.common;
 
+import kitchenpos.domain.*;
+import kitchenpos.menugroup.domain.MenuGroup;
+import kitchenpos.menuproduct.domian.MenuProduct;
+import kitchenpos.product.command.domain.Product;
+import org.springframework.test.util.ReflectionTestUtils;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.test.util.ReflectionTestUtils;
-
-import kitchenpos.domain.Menu;
-import kitchenpos.domain.MenuProduct;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderTable;
-import kitchenpos.domain.TableGroup;
-import kitchenpos.menugroup.domain.MenuGroup;
-import kitchenpos.product.domain.Product;
 
 public class TestObjectUtils {
     private TestObjectUtils() {
@@ -37,7 +32,7 @@ public class TestObjectUtils {
     }
 
     public static Menu createMenu(Long id, String name, BigDecimal price, Long menuGroupId,
-            List<MenuProduct> menuProducts) {
+                                  List<MenuProduct> menuProducts) {
         Menu menu = new Menu();
         ReflectionTestUtils.setField(menu, "id", id);
         ReflectionTestUtils.setField(menu, "name", name);
@@ -49,7 +44,7 @@ public class TestObjectUtils {
     }
 
     public static MenuProduct createMenuProduct(Long seq, Long menuId, Long productId,
-            Long quantity) {
+                                                Long quantity) {
         MenuProduct menuProduct = new MenuProduct();
         ReflectionTestUtils.setField(menuProduct, "seq", seq);
         ReflectionTestUtils.setField(menuProduct, "menuId", menuId);
@@ -60,7 +55,7 @@ public class TestObjectUtils {
     }
 
     public static OrderTable createOrderTable(Long id, Long tableGroupId, int numberOfGuests,
-            boolean empty) {
+                                              boolean empty) {
         OrderTable orderTable = new OrderTable();
         ReflectionTestUtils.setField(orderTable, "id", id);
         ReflectionTestUtils.setField(orderTable, "tableGroupId", tableGroupId);
@@ -71,7 +66,7 @@ public class TestObjectUtils {
     }
 
     public static Order createOrder(Long id, Long orderTableId, String orderStatus,
-            LocalDateTime orderedTime, List<OrderLineItem> orderLineItems) {
+                                    LocalDateTime orderedTime, List<OrderLineItem> orderLineItems) {
         Order order = new Order();
         ReflectionTestUtils.setField(order, "id", id);
         ReflectionTestUtils.setField(order, "orderTableId", orderTableId);
@@ -83,7 +78,7 @@ public class TestObjectUtils {
     }
 
     public static OrderLineItem createOrderLineItem(Long seq, Long orderId, Long menuId,
-            long quantity) {
+                                                    long quantity) {
         OrderLineItem orderLineItem = new OrderLineItem();
         ReflectionTestUtils.setField(orderLineItem, "seq", seq);
         ReflectionTestUtils.setField(orderLineItem, "orderId", orderId);
@@ -94,7 +89,7 @@ public class TestObjectUtils {
     }
 
     public static TableGroup createTableGroup(Long id, LocalDateTime createdDate,
-            List<OrderTable> orderTables) {
+                                              List<OrderTable> orderTables) {
         TableGroup tableGroup = new TableGroup();
         ReflectionTestUtils.setField(tableGroup, "id", id);
         ReflectionTestUtils.setField(tableGroup, "createdDate", createdDate);

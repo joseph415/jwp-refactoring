@@ -1,23 +1,22 @@
 package kitchenpos.integration;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import kitchenpos.application.MenuService;
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.MenuDao;
+import kitchenpos.domain.Menu;
+import kitchenpos.menugroup.domain.MenuGroupDao;
+import kitchenpos.menuproduct.domian.MenuProduct;
+import kitchenpos.product.command.domain.ProductRepository;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import kitchenpos.application.MenuService;
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.MenuDao;
-import kitchenpos.domain.Menu;
-import kitchenpos.domain.MenuProduct;
-import kitchenpos.menugroup.domain.MenuGroupDao;
-import kitchenpos.product.domain.ProductDao;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MenuServiceTest extends IntegrationTest {
 
@@ -28,14 +27,14 @@ class MenuServiceTest extends IntegrationTest {
     @Autowired
     private MenuGroupDao menuGroupDao;
     @Autowired
-    private ProductDao productDao;
+    private ProductRepository productRepository;
 
     @DisplayName("1 개 이상의 등록된 상품으로 메뉴를 등록할 수 있다.")
     @Test
     void should_givenMenuProduct_createMenu() {
         menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        productDao.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
-        productDao.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
+        productRepository.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
+        productRepository.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
 
         MenuProduct friedChicken =
                 TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);
@@ -61,8 +60,8 @@ class MenuServiceTest extends IntegrationTest {
     @Test
     void listTest() {
         menuGroupDao.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        productDao.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
-        productDao.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
+        productRepository.save(TestObjectUtils.createProduct(null, "후라이드 치킨", BigDecimal.valueOf(8000)));
+        productRepository.save(TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
 
         MenuProduct friedChicken =
                 TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);

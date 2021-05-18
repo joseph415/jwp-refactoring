@@ -1,7 +1,7 @@
 package kitchenpos.fixture;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.MenuProduct;
+import kitchenpos.menuproduct.domian.MenuProduct;
 
 public class MenuProductFixture {
     public static final MenuProduct MENU_PRODUCT1 =
