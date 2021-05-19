@@ -1,7 +1,6 @@
 package kitchenpos.application;
 
 import static kitchenpos.fixture.MenuFixture.*;
-import static kitchenpos.fixture.MenuProductFixture.*;
 import static kitchenpos.fixture.ProductFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import kitchenpos.menu.command.application.MenuService;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
 import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
-import kitchenpos.menu.command.domain.menuproduct.MenuProductRepository;
 import kitchenpos.menu.query.dto.MenuResponse;
 import kitchenpos.menu.ui.dto.MenuProductRequest;
 import kitchenpos.menu.ui.dto.MenuRequest;
@@ -35,8 +33,6 @@ class MenuServiceTest {
     @Mock
     private MenuGroupRepository menuGroupRepository;
     @Mock
-    private MenuProductRepository menuProductRepository;
-    @Mock
     private ProductRepository productRepository;
 
     @InjectMocks
@@ -49,7 +45,6 @@ class MenuServiceTest {
         when(menuGroupRepository.existsById(anyLong())).thenReturn(true);
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(FRIED_CHICKEN));
         when(menuRepository.save(any())).thenReturn(MENU1);
-        when(menuProductRepository.save(any())).thenReturn(MENU_PRODUCT1);
 
         MenuProductRequest menuProductRequest = new MenuProductRequest(Arrays.asList(1L, 2L), 2);
         MenuRequest menuRequest = new MenuRequest("두마리치킨",
