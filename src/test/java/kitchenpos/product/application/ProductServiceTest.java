@@ -1,12 +1,9 @@
-package kitchenpos.menu.application;
+package kitchenpos.product.application;
 
-import static kitchenpos.fixture.ProductFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.math.BigDecimal;
-
+import kitchenpos.product.command.application.ProductService;
+import kitchenpos.product.command.domain.product.ProductRepository;
+import kitchenpos.product.query.dto.ProductResponse;
+import kitchenpos.product.ui.dto.ProductRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.product.command.application.ProductService;
-import kitchenpos.product.command.domain.product.ProductRepository;
-import kitchenpos.product.query.dto.ProductResponse;
-import kitchenpos.product.ui.dto.ProductRequest;
+import java.math.BigDecimal;
+
+import static kitchenpos.fixture.ProductFixture.FRIED_CHICKEN;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {

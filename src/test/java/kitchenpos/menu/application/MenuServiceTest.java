@@ -1,21 +1,4 @@
-package kitchenpos.application;
-
-import static kitchenpos.fixture.MenuFixture.*;
-import static kitchenpos.fixture.ProductFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Optional;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+package kitchenpos.menu.application;
 
 import kitchenpos.menu.command.application.MenuService;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
@@ -24,6 +7,22 @@ import kitchenpos.menu.query.dto.MenuResponse;
 import kitchenpos.menu.ui.dto.MenuProductRequest;
 import kitchenpos.menu.ui.dto.MenuRequest;
 import kitchenpos.product.command.domain.product.ProductRepository;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Optional;
+
+import static kitchenpos.fixture.MenuFixture.MENU1;
+import static kitchenpos.fixture.ProductFixture.FRIED_CHICKEN;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceTest {
