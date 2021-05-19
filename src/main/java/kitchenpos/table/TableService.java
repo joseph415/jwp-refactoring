@@ -1,16 +1,16 @@
 package kitchenpos.table;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import kitchenpos.order.domain.OrderDao;
 import kitchenpos.order.domain.OrderStatus;
 import kitchenpos.table.domain.OrderTable;
 import kitchenpos.table.domain.OrderTableDao;
+import kitchenpos.table.ui.dto.OrderTableRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TableService {
@@ -23,9 +23,8 @@ public class TableService {
     }
 
     @Transactional
-    public OrderTable create(final OrderTable orderTable) {
-        orderTable.setId(null);
-        orderTable.setTableGroupId(null);
+    public OrderTable create(final OrderTableRequest orderTableRequest) {
+        OrderTable orderTable = OrderTable.from(orderTableRequest);
 
         return orderTableDao.save(orderTable);
     }

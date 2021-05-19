@@ -16,10 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Optional;
 
 import static kitchenpos.fixture.MenuFixture.MENU1;
 import static kitchenpos.fixture.ProductFixture.FRIED_CHICKEN;
+import static kitchenpos.fixture.ProductFixture.SEASONING_CHICKEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
@@ -42,12 +42,12 @@ class MenuServiceTest {
     void createTest() {
 
         when(menuGroupRepository.existsById(anyLong())).thenReturn(true);
-        when(productRepository.findById(anyLong())).thenReturn(Optional.of(FRIED_CHICKEN));
+        when(productRepository.findAllByIdIn(anyList())).thenReturn(Arrays.asList(FRIED_CHICKEN, SEASONING_CHICKEN));
         when(menuRepository.save(any())).thenReturn(MENU1);
 
         MenuProductRequest menuProductRequest = new MenuProductRequest(Arrays.asList(1L, 2L), 2);
         MenuRequest menuRequest = new MenuRequest("두마리치킨",
-                BigDecimal.valueOf(16000), 1L, menuProductRequest);
+                BigDecimal.valueOf(19000), 1L, menuProductRequest);
 
         MenuResponse savedMenu = menuService.create(menuRequest);
 
@@ -56,13 +56,8 @@ class MenuServiceTest {
                 () -> assertThat(savedMenu.getMenuGroupId()).isEqualTo(2L),
                 () -> assertThat(savedMenu.getName()).isEqualTo("후라이드치킨"),
                 () -> assertThat(savedMenu.getPrice()).isEqualTo(BigDecimal.valueOf(16000)),
-                () -> assertThat(savedMenu.getMenuProductResponse().size()).isEqualTo(1),
-                () -> assertThat(savedMenu.getMenuProductResponse().get(0).getMenuId()).isEqualTo(
-                        1L),
-                () -> assertThat(
-                        savedMenu.getMenuProductResponse().get(0).getProductId()).isEqualTo(1L),
-                () -> assertThat(savedMenu.getMenuProductResponse().get(0).getQuantity()).isEqualTo(
-                        1)
+                () -> assertThat(savedMenu.getMenuProductResponse().size()).isEqualTo(2),
+                () -> assertThat(savedMenu.getMenuProductResponse().get(0).getMenuId()).isEqualTo(1L)
         );
     }
 }
