@@ -2,23 +2,15 @@ package kitchenpos.integration;
 
 import static kitchenpos.fixture.OrderFixture.*;
 import static kitchenpos.fixture.OrderTableFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 
-import kitchenpos.application.TableService;
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.domain.OrderTable;
+import kitchenpos.order.domain.OrderDao;
+import kitchenpos.table.TableService;
+import kitchenpos.table.domain.OrderTable;
 
 class TableTest extends IntegrationTest {
     @Autowired

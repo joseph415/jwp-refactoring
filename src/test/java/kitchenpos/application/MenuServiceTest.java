@@ -20,12 +20,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import kitchenpos.menu.command.application.MenuService;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
+import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
 import kitchenpos.menu.command.domain.menuproduct.MenuProductRepository;
-import kitchenpos.menu.command.domain.product.ProductRepository;
 import kitchenpos.menu.query.dto.MenuResponse;
 import kitchenpos.menu.ui.dto.MenuProductRequest;
 import kitchenpos.menu.ui.dto.MenuRequest;
-import kitchenpos.menugroup.command.domain.MenuGroupRepository;
+import kitchenpos.product.command.domain.product.ProductRepository;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceTest {

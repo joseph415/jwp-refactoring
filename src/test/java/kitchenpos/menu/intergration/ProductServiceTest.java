@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.integration.IntegrationTest;
-import kitchenpos.menu.command.application.ProductService;
-import kitchenpos.menu.command.domain.product.Product;
-import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menu.infra.JpaProductDao;
-import kitchenpos.menu.query.dto.ProductResponse;
-import kitchenpos.menu.query.dto.ProductResponses;
-import kitchenpos.menu.ui.dto.ProductRequest;
+import kitchenpos.product.command.application.ProductService;
+import kitchenpos.product.command.domain.product.Product;
+import kitchenpos.product.command.domain.product.ProductRepository;
+import kitchenpos.product.infra.JpaProductDao;
+import kitchenpos.product.query.dto.ProductResponse;
+import kitchenpos.product.query.dto.ProductResponses;
+import kitchenpos.product.ui.dto.ProductRequest;
 
 class ProductServiceTest extends IntegrationTest {
 

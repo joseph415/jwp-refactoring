@@ -1,6 +1,6 @@
 package kitchenpos.menu.query.dto;
 
-import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
+import kitchenpos.menu.command.domain.menu.MenuProduct;
 
 public class MenuProductResponse {
     private Long seq;

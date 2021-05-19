@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import kitchenpos.menu.command.domain.menu.Menu;
-import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
+import kitchenpos.menu.command.domain.menu.MenuProduct;
 
 public class MenuResponse {
     private Long id;

@@ -16,9 +16,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.OrderTable;
+import kitchenpos.order.domain.OrderDao;
+import kitchenpos.table.TableService;
+import kitchenpos.table.domain.OrderTable;
+import kitchenpos.table.domain.OrderTableDao;
 
 @ExtendWith(MockitoExtension.class)
 class TableServiceTest {
@@ -38,7 +39,7 @@ class TableServiceTest {
                 TestObjectUtils.createOrderTable(null, 1L, 0, true);
         when(orderTableDao.save(any())).thenReturn(ORDER_TABLE1);
 
-        assertThat(tableService.create(createOrderTable).getNumberOfGuests()).isEqualTo(0);
+        assertThat(tableService.create(createOrderTable).getNumberOfGuests()).isZero();
     }
 
     @DisplayName("주문 테이블의 목록을 조회할 수 있다.")

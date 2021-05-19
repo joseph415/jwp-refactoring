@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderStatus;
+import kitchenpos.order.domain.Order;
+import kitchenpos.order.domain.OrderStatus;
 
 public class OrderFixture {
     public static final Order ORDER1 = TestObjectUtils.createOrder(

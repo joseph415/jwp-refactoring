@@ -12,18 +12,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.application.OrderService;
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderStatus;
 import kitchenpos.fixture.OrderFixture;
 import kitchenpos.menu.command.domain.menu.Menu;
+import kitchenpos.menu.command.domain.menu.MenuProduct;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
-import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
-import kitchenpos.menugroup.command.domain.MenuGroupRepository;
+import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
+import kitchenpos.order.OrderService;
+import kitchenpos.order.domain.Order;
+import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderLineItem;
+import kitchenpos.order.domain.OrderStatus;
+import kitchenpos.table.domain.OrderTableDao;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired

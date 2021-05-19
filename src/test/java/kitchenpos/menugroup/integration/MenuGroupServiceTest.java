@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.integration.IntegrationTest;
-import kitchenpos.menugroup.command.application.MenuGroupService;
-import kitchenpos.menugroup.query.dto.MenuGroupResponse;
-import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
+import kitchenpos.menu.command.application.MenuGroupService;
+import kitchenpos.menu.query.dto.MenuGroupResponse;
+import kitchenpos.menu.ui.dto.MenuGroupRequest;
 
 class MenuGroupServiceTest extends IntegrationTest {
     @Autowired

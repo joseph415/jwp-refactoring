@@ -17,10 +17,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.dao.TableGroupDao;
-import kitchenpos.domain.TableGroup;
+import kitchenpos.order.domain.OrderDao;
+import kitchenpos.table.TableGroupService;
+import kitchenpos.table.domain.OrderTableDao;
+import kitchenpos.table.domain.TableGroup;
+import kitchenpos.table.domain.TableGroupDao;
 
 @ExtendWith(MockitoExtension.class)
 class TableGroupServiceTest {

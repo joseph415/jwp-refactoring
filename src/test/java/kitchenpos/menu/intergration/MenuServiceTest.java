@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.integration.IntegrationTest;
 import kitchenpos.menu.command.application.MenuService;
-import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
-import kitchenpos.menu.command.domain.product.ProductRepository;
+import kitchenpos.menu.command.domain.menu.MenuProduct;
+import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
 import kitchenpos.menu.query.dto.MenuResponse;
 import kitchenpos.menu.ui.dto.MenuProductRequest;
 import kitchenpos.menu.ui.dto.MenuRequest;
-import kitchenpos.menugroup.command.domain.MenuGroupRepository;
+import kitchenpos.product.command.domain.product.ProductRepository;
 
 class MenuServiceTest extends IntegrationTest {
 

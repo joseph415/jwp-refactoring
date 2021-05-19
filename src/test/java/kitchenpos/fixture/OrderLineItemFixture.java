@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.OrderLineItem;
+import kitchenpos.order.domain.OrderLineItem;
 
 public class OrderLineItemFixture {
     public static final OrderLineItem ORDER_LINE_ITEM1 = TestObjectUtils.createOrderLineItem(

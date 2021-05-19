@@ -18,13 +18,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderLineItemDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderStatus;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
+import kitchenpos.order.OrderService;
+import kitchenpos.order.domain.Order;
+import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderLineItem;
+import kitchenpos.order.domain.OrderLineItemDao;
+import kitchenpos.order.domain.OrderStatus;
+import kitchenpos.table.domain.OrderTableDao;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {

@@ -14,10 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.menu.command.application.ProductService;
-import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menu.query.dto.ProductResponse;
-import kitchenpos.menu.ui.dto.ProductRequest;
+import kitchenpos.product.command.application.ProductService;
+import kitchenpos.product.command.domain.product.ProductRepository;
+import kitchenpos.product.query.dto.ProductResponse;
+import kitchenpos.product.ui.dto.ProductRequest;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {

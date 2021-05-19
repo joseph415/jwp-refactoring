@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.OrderTable;
+import kitchenpos.table.domain.OrderTable;
 
 public class OrderTableFixture {
 

@@ -10,11 +10,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.application.TableGroupService;
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.dao.TableGroupDao;
-import kitchenpos.domain.TableGroup;
+import kitchenpos.table.TableGroupService;
+import kitchenpos.table.domain.OrderTableDao;
+import kitchenpos.table.domain.TableGroup;
+import kitchenpos.table.domain.TableGroupDao;
 
 class TableGroupTest extends IntegrationTest {
     @Autowired

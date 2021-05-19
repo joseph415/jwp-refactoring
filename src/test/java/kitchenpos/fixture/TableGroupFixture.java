@@ -5,7 +5,7 @@ import static kitchenpos.fixture.OrderTableFixture.*;
 import java.time.LocalDateTime;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.domain.TableGroup;
+import kitchenpos.table.domain.TableGroup;
 
 public class TableGroupFixture {
     public static final TableGroup TABLE_GROUP1 = TestObjectUtils.createTableGroup(

@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import kitchenpos.menu.command.domain.product.NotCreateMenu;
-import kitchenpos.menu.command.domain.product.Product;
+import kitchenpos.product.command.NotCreateMenu;
+import kitchenpos.product.command.domain.product.Product;
 
 @Entity
 public class Menu {

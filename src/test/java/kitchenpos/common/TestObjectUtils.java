@@ -6,14 +6,14 @@ import java.util.List;
 
 import org.springframework.test.util.ReflectionTestUtils;
 
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderTable;
-import kitchenpos.domain.TableGroup;
 import kitchenpos.menu.command.domain.menu.Menu;
-import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
-import kitchenpos.menu.command.domain.product.Product;
-import kitchenpos.menugroup.command.domain.MenuGroup;
+import kitchenpos.menu.command.domain.menu.MenuProduct;
+import kitchenpos.menu.command.domain.menugroup.MenuGroup;
+import kitchenpos.order.domain.Order;
+import kitchenpos.order.domain.OrderLineItem;
+import kitchenpos.product.command.domain.product.Product;
+import kitchenpos.table.domain.OrderTable;
+import kitchenpos.table.domain.TableGroup;
 
 public class TestObjectUtils {
     private TestObjectUtils() {
