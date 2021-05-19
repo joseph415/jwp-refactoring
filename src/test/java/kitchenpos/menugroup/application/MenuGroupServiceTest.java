@@ -1,8 +1,10 @@
 package kitchenpos.menugroup.application;
 
-import kitchenpos.menugroup.domain.MenuGroupRepository;
-import kitchenpos.menugroup.query.dto.MenuGroupResponse;
-import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
+import static kitchenpos.fixture.MenuGroupFixture.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,11 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static kitchenpos.fixture.MenuGroupFixture.MENU_GROUP1;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import kitchenpos.menugroup.command.application.MenuGroupService;
+import kitchenpos.menugroup.command.domain.MenuGroupRepository;
+import kitchenpos.menugroup.query.dto.MenuGroupResponse;
+import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
 
 @ExtendWith(MockitoExtension.class)
 class MenuGroupServiceTest {

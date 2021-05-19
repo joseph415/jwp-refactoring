@@ -1,18 +1,20 @@
 package kitchenpos.menugroup.ui;
 
-import kitchenpos.menugroup.application.MenuGroupService;
-import kitchenpos.menugroup.query.MenuGroupDao;
-import kitchenpos.menugroup.query.dto.MenuGroupResponse;
-import kitchenpos.menugroup.query.dto.MenuGroupResponses;
-import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
+import kitchenpos.menugroup.command.application.MenuGroupService;
+import kitchenpos.menugroup.query.MenuGroupDao;
+import kitchenpos.menugroup.query.dto.MenuGroupResponse;
+import kitchenpos.menugroup.query.dto.MenuGroupResponses;
+import kitchenpos.menugroup.ui.dto.MenuGroupRequest;
 
 @RestController
 public class MenuGroupRestController {
@@ -20,7 +22,8 @@ public class MenuGroupRestController {
     private final MenuGroupService menuGroupService;
     private final MenuGroupDao menuGroupRepository;
 
-    public MenuGroupRestController(MenuGroupService menuGroupService, MenuGroupDao menuGroupRepository) {
+    public MenuGroupRestController(MenuGroupService menuGroupService,
+            MenuGroupDao menuGroupRepository) {
         this.menuGroupService = menuGroupService;
         this.menuGroupRepository = menuGroupRepository;
     }

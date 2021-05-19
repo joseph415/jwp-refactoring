@@ -1,8 +1,8 @@
 package kitchenpos.menu.query.dto;
 
-import kitchenpos.menu.command.domain.product.Product;
-
 import java.math.BigDecimal;
+
+import kitchenpos.menu.command.domain.product.Product;
 
 public class ProductResponse {
     private Long id;

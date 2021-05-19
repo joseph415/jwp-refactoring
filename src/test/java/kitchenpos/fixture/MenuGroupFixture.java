@@ -1,10 +1,10 @@
 package kitchenpos.fixture;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.menugroup.domain.MenuGroup;
-
 import java.util.Arrays;
 import java.util.List;
+
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.menugroup.command.domain.MenuGroup;
 
 public class MenuGroupFixture {
     public static final MenuGroup MENU_GROUP1 = TestObjectUtils.createMenuGroup(1L, "두마리메뉴");

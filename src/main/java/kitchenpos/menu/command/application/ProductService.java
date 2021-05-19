@@ -1,11 +1,12 @@
 package kitchenpos.menu.command.application;
 
-import kitchenpos.menu.command.domain.product.Product;
-import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menu.query.dto.ProductRequest;
-import kitchenpos.menu.query.dto.ProductResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import kitchenpos.menu.command.domain.product.Product;
+import kitchenpos.menu.command.domain.product.ProductRepository;
+import kitchenpos.menu.query.dto.ProductResponse;
+import kitchenpos.menu.ui.dto.ProductRequest;
 
 @Service
 public class ProductService {

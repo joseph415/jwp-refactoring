@@ -1,5 +1,17 @@
 package kitchenpos.integration;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import kitchenpos.application.OrderService;
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.dao.OrderDao;
@@ -9,21 +21,9 @@ import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderStatus;
 import kitchenpos.fixture.OrderFixture;
 import kitchenpos.menu.command.domain.menu.Menu;
-import kitchenpos.menu.command.domain.menu.MenuDao;
+import kitchenpos.menu.command.domain.menu.MenuRepository;
 import kitchenpos.menu.command.domain.menuproduct.MenuProduct;
-import kitchenpos.menugroup.domain.MenuGroupRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import kitchenpos.menugroup.command.domain.MenuGroupRepository;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired
@@ -31,7 +31,7 @@ class OrderServiceTest extends IntegrationTest {
     @Autowired
     private MenuGroupRepository menuGroupRepository;
     @Autowired
-    private MenuDao menuDao;
+    private MenuRepository menuRepository;
     @Autowired
     private OrderDao orderDao;
 
@@ -46,11 +46,11 @@ class OrderServiceTest extends IntegrationTest {
         final MenuProduct seasoningChicken =
                 TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
         final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L, Arrays.asList(friedChicken, seasoningChicken));
+                1L);
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuDao.save(menu);
+        menuRepository.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
 
         Order createdOrder = TestObjectUtils.createOrder(
@@ -74,14 +74,14 @@ class OrderServiceTest extends IntegrationTest {
         final MenuProduct seasoningChicken =
                 TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
         final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L, Arrays.asList(friedChicken, seasoningChicken));
+                1L);
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
         Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuDao.save(menu);
+        menuRepository.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         orderDao.save(createdOrder);
 
@@ -99,14 +99,14 @@ class OrderServiceTest extends IntegrationTest {
         final MenuProduct seasoningChicken =
                 TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
         final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L, Arrays.asList(friedChicken, seasoningChicken));
+                1L);
         OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
         Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuDao.save(menu);
+        menuRepository.save(menu);
         orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         final Order order = orderDao.save(createdOrder);
 

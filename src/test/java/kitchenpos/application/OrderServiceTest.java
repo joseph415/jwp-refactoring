@@ -1,13 +1,15 @@
 package kitchenpos.application;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.dao.OrderDao;
-import kitchenpos.dao.OrderLineItemDao;
-import kitchenpos.dao.OrderTableDao;
-import kitchenpos.domain.Order;
-import kitchenpos.domain.OrderLineItem;
-import kitchenpos.domain.OrderStatus;
-import kitchenpos.menu.command.domain.menu.MenuDao;
+import static kitchenpos.fixture.OrderFixture.*;
+import static kitchenpos.fixture.OrderLineItemFixture.*;
+import static kitchenpos.fixture.OrderTableFixture.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.Collections;
+import java.util.Optional;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,24 +17,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.Optional;
-
-import static kitchenpos.fixture.OrderFixture.*;
-import static kitchenpos.fixture.OrderLineItemFixture.ORDER_LINE_ITEM1;
-import static kitchenpos.fixture.OrderLineItemFixture.ORDER_LINE_ITEMS3;
-import static kitchenpos.fixture.OrderTableFixture.ORDER_TABLE1;
-import static kitchenpos.fixture.OrderTableFixture.ORDER_TABLE5;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.*;
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.dao.OrderDao;
+import kitchenpos.dao.OrderLineItemDao;
+import kitchenpos.dao.OrderTableDao;
+import kitchenpos.domain.Order;
+import kitchenpos.domain.OrderLineItem;
+import kitchenpos.domain.OrderStatus;
+import kitchenpos.menu.command.domain.menu.MenuRepository;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
 
     @Mock
-    private MenuDao menuDao;
+    private MenuRepository menuRepository;
     @Mock
     private OrderDao orderDao;
     @Mock
@@ -50,7 +48,7 @@ class OrderServiceTest {
         Order createOrder = TestObjectUtils.createOrder(null, 5L, null, null,
                 Collections.singletonList(orderLineItem));
 
-        when(menuDao.countByIdIn(anyList())).thenReturn(1L);
+        when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
         when(orderTableDao.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE5));
         when(orderLineItemDao.save(any())).thenReturn(ORDER_LINE_ITEM1);
         when(orderDao.save(any())).thenReturn(ORDER1);
@@ -74,7 +72,7 @@ class OrderServiceTest {
         Order createOrder = TestObjectUtils.createOrder(null, 1L, null, null,
                 Collections.singletonList(orderLineItem));
 
-        when(menuDao.countByIdIn(anyList())).thenReturn(1L);
+        when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
         when(orderTableDao.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE1));
 
         assertThatThrownBy(() -> orderService.create(createOrder))

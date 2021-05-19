@@ -1,9 +1,12 @@
 package kitchenpos.menu.application;
 
-import kitchenpos.menu.command.application.ProductService;
-import kitchenpos.menu.command.domain.product.ProductRepository;
-import kitchenpos.menu.query.dto.ProductRequest;
-import kitchenpos.menu.query.dto.ProductResponse;
+import static kitchenpos.fixture.ProductFixture.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,13 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-
-import static kitchenpos.fixture.ProductFixture.FRIED_CHICKEN;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import kitchenpos.menu.command.application.ProductService;
+import kitchenpos.menu.command.domain.product.ProductRepository;
+import kitchenpos.menu.query.dto.ProductResponse;
+import kitchenpos.menu.ui.dto.ProductRequest;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -31,7 +31,7 @@ class ProductServiceTest {
     @DisplayName("상품을 생성할 수 있다.")
     @Test
     void createTest() {
-        ProductRequest productRequest = new ProductRequest("후라이드", 16000);
+        ProductRequest productRequest = new ProductRequest("후라이드", BigDecimal.valueOf(16000));
         when(productRepository.save(any())).thenReturn(FRIED_CHICKEN);
 
         ProductResponse product = productService.create(productRequest);
