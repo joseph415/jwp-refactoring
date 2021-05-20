@@ -16,8 +16,7 @@ public class MenuPolicyDomainService {
     public void verifyCreateOrder(final MenuRepository menuRepository,
             final OrderTableRepository orderTableRepository, final OrderRequest orderRequest) {
 
-        final List<Long> menuIds = orderRequest.getOrderLineItemRequests()
-                .getOrderLineItems()
+        final List<Long> menuIds = orderRequest.getOrderLineItems()
                 .stream()
                 .map(OrderLineItemRequest::getMenuId)
                 .collect(Collectors.toList());
@@ -32,5 +31,7 @@ public class MenuPolicyDomainService {
         if (orderTable.isEmpty()) {
             throw new NotCreateOrder("orderTable 이 현재 주문불가 상태입니다.");
         }
+
+        orderTable.updateEmpty(false);
     }
 }

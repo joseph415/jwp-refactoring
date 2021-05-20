@@ -26,7 +26,6 @@ import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.order.domain.OrderStatus;
 import kitchenpos.order.ui.dto.ChangeOrderStatusRequest;
 import kitchenpos.order.ui.dto.OrderLineItemRequest;
-import kitchenpos.order.ui.dto.OrderLineItemRequests;
 import kitchenpos.order.ui.dto.OrderRequest;
 import kitchenpos.product.command.domain.product.Product;
 import kitchenpos.product.command.domain.product.ProductRepository;
@@ -59,8 +58,8 @@ class OrderServiceTest extends IntegrationTest {
                                 new MenuProduct(null, 2L, 1L))));
         orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
 
-        OrderRequest createOrder = new OrderRequest(1L, new OrderLineItemRequests(
-                Collections.singletonList(new OrderLineItemRequest(1L, 1L))));
+        OrderRequest createOrder = new OrderRequest(1L,
+                Collections.singletonList(new OrderLineItemRequest(1L, 1L)));
 
         final OrderResponse order = orderService.create(createOrder);
 

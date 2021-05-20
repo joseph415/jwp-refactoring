@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "orderTables": [
-    1,
-    2
+    2,
+    3
   ]
 }
 

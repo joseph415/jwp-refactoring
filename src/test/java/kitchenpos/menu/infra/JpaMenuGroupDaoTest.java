@@ -1,4 +1,4 @@
-package kitchenpos.menugroup.infra;
+package kitchenpos.menu.infra;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import kitchenpos.menu.infra.JpaMenuGroupDao;
 import kitchenpos.menu.query.dto.MenuGroupResponse;
 import kitchenpos.menu.query.dto.MenuGroupResponses;
 

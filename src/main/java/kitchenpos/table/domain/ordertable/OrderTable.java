@@ -52,7 +52,7 @@ public class OrderTable {
     }
 
     public void updateEmpty(Boolean empty) {
-
+        this.empty = empty;
     }
 
     public Long getId() {

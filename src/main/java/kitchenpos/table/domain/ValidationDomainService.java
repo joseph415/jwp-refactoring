@@ -15,20 +15,21 @@ import kitchenpos.table.domain.ordertable.OrderTable;
 @Component
 public class ValidationDomainService {
 
-    public void checkOrderTable(OrderRepository orderRepository, OrderTable orderTable) {
+    public void checkOrderTable(OrderRepository orderRepository, OrderTable orderTable,
+            Long OrderTableId) {
         if (Objects.nonNull(orderTable.getTableGroupId())) {
             throw new IllegalArgumentException();
         }
 
         // TODO: 2021/05/20 도메인 상태를 확인하는것 -> 비지니스 영역
         if (orderRepository.existsByOrderTableIdAndOrderStatusIn(
-                orderTable.getTableGroupId(),
+                OrderTableId,
                 Arrays.asList(OrderStatus.COOKING.name(), OrderStatus.MEAL.name()))) {
-            throw new CheckOrderTableException("주문 상태가 조리 또는 식사인 경우 단체 지정을 해지할 수 없다.");
+            throw new CheckOrderTableException("주문 상태가 조리 또는 식사중 입니다.");
         }
     }
 
-    public void checkOrderTable(OrderRepository orderRepository, List<OrderTable> orderTables) {
+    public void checkOrderTables(OrderRepository orderRepository, List<OrderTable> orderTables) {
         if (CollectionUtils.isEmpty(orderTables)) {
             throw new IllegalArgumentException("orderTable 이 존재하지 않습니다.");
         }

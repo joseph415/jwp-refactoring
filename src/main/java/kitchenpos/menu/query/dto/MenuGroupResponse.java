@@ -3,8 +3,8 @@ package kitchenpos.menu.query.dto;
 import kitchenpos.menu.command.domain.menugroup.MenuGroup;
 
 public class MenuGroupResponse {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
 
     public MenuGroupResponse(Long id, String name) {
         this.id = id;

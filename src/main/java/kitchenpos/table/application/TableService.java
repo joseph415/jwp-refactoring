@@ -50,8 +50,8 @@ public class TableService {
             final ChangeEmptyRequest changeEmptyRequest) {
         final OrderTable orderTable = orderTableRepository.findById(orderTableId)
                 .orElseThrow(IllegalArgumentException::new);
-        validationDomainService.checkOrderTable(orderRepository, orderTable);
-
+        validationDomainService.checkOrderTable(orderRepository, orderTable, orderTableId);
+        
         orderTable.updateEmpty(changeEmptyRequest.getEmpty());
     }
 

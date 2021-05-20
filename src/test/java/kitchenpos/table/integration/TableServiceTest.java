@@ -52,8 +52,9 @@ class TableServiceTest extends IntegrationTest {
         ChangeEmptyRequest changeEmptyRequest = new ChangeEmptyRequest(true);
 
         tableService.changeEmpty(orderTable.getId(), changeEmptyRequest);
+        final OrderTable test = orderTableRepository.findById(orderTable.getId()).get();
 
-        assertThat(orderTable.isEmpty()).isTrue();
+        assertThat(test.isEmpty()).isTrue();
     }
 
     @DisplayName("방문한 손님 수를 입력할 수 있다.")
@@ -64,8 +65,9 @@ class TableServiceTest extends IntegrationTest {
         ChangeNumberOfGuestRequest changeNumberOfGuestRequest = new ChangeNumberOfGuestRequest(5);
 
         tableService.changeNumberOfGuests(orderTable.getId(), changeNumberOfGuestRequest);
+        final OrderTable test = orderTableRepository.findById(orderTable.getId()).get();
 
-        assertThat(orderTable.getNumberOfGuests()).isEqualTo(
+        assertThat(test.getNumberOfGuests()).isEqualTo(
                 changeNumberOfGuestRequest.getNumberOfGuests());
 
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MenuGroupResponses {
 
-    List<MenuGroupResponse> responses;
+    private final List<MenuGroupResponse> responses;
 
     public MenuGroupResponses(List<MenuGroupResponse> responses) {
         this.responses = responses;

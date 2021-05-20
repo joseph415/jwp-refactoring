@@ -11,19 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kitchenpos.menu.command.application.MenuResponse;
+import kitchenpos.menu.command.application.MenuResponses;
 import kitchenpos.menu.command.application.MenuService;
-import kitchenpos.menu.infra.JpaMenuDao;
-import kitchenpos.menu.query.dto.MenuViewResponses;
 import kitchenpos.menu.ui.dto.MenuRequest;
 
 @RestController
 public class MenuRestController {
     private final MenuService menuService;
-    private final JpaMenuDao jpaMenuDao;
 
-    public MenuRestController(MenuService menuService, JpaMenuDao jpaMenuDao) {
+    public MenuRestController(MenuService menuService) {
         this.menuService = menuService;
-        this.jpaMenuDao = jpaMenuDao;
     }
 
     @PostMapping("/api/menus")
@@ -38,8 +35,8 @@ public class MenuRestController {
     }
 
     @GetMapping("/api/menus")
-    public ResponseEntity<MenuViewResponses> list() {
+    public ResponseEntity<MenuResponses> list() {
         return ResponseEntity.ok()
-                .body(jpaMenuDao.select());
+                .body(menuService.list());
     }
 }

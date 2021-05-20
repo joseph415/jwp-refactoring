@@ -15,10 +15,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.table.application.dto.ChangeEmptyRequest;
 import kitchenpos.table.application.dto.ChangeNumberOfGuestRequest;
 import kitchenpos.table.application.dto.OrderTableResponses;
+import kitchenpos.table.domain.ValidationDomainService;
 import kitchenpos.table.domain.ordertable.OrderTableRepository;
 import kitchenpos.table.ui.dto.OrderTableRequest;
 
@@ -26,9 +26,9 @@ import kitchenpos.table.ui.dto.OrderTableRequest;
 class TableServiceTest {
 
     @Mock
-    private OrderRepository orderRepository;
-    @Mock
     private OrderTableRepository orderTableRepository;
+    @Mock
+    private ValidationDomainService validationDomainService;
 
     @InjectMocks
     private TableService tableService;
@@ -61,12 +61,11 @@ class TableServiceTest {
     void changeNumberOfGuestsTest() {
         ChangeNumberOfGuestRequest changeNumberOfGuestRequest = new ChangeNumberOfGuestRequest(5);
 
-        verify(orderTableRepository).findById(any());
-        verify(orderTableRepository).save(any());
         when(orderTableRepository.findById(any())).thenReturn(Optional.of(ORDER_TABLE3));
-        when(orderTableRepository.save(any())).thenReturn(CHANGING_GUEST_ORDER_TABLE);
 
         tableService.changeNumberOfGuests(ORDER_TABLE3.getId(), changeNumberOfGuestRequest);
+
+        verify(orderTableRepository).findById(any());
     }
 
     @DisplayName("단체 지정된 주문 테이블은 빈 테이블 설정 또는 해지할 수 없다.")
@@ -74,26 +73,12 @@ class TableServiceTest {
     void notChangeEmptyTest_when_tableGroupNotNull() {
         ChangeEmptyRequest changeEmptyRequest = new ChangeEmptyRequest(false);
 
-        verify(orderTableRepository).findById(any());
         when(orderTableRepository.findById(any())).thenReturn(Optional.of(ORDER_TABLE3));
 
-        assertThatThrownBy(
-                () -> tableService.changeEmpty(ORDER_TABLE3.getId(), changeEmptyRequest))
-                .isInstanceOf(IllegalArgumentException.class)
-        ;
-    }
+        tableService.changeEmpty(ORDER_TABLE3.getId(), changeEmptyRequest);
 
-    @DisplayName("주문 상태가 조리 또는 식사인 주문 테이블은 빈 테이블 설정 또는 해지할 수 없다.")
-    @Test
-    void notChangeEmptyTest_when_orderStatusIsMEALAndCOOKING() {
-        ChangeEmptyRequest changeEmptyRequest = new ChangeEmptyRequest(false);
-        when(orderTableRepository.findById(any())).thenReturn(Optional.of(ORDER_TABLE1));
-        when(orderRepository.existsByOrderTableIdAndOrderStatusIn(anyLong(), anyList())).thenReturn(
-                true);
-
-        assertThatThrownBy(
-                () -> tableService.changeEmpty(ORDER_TABLE1.getId(), changeEmptyRequest)
-        ).isInstanceOf(IllegalArgumentException.class);
+        verify(orderTableRepository).findById(any());
+        verify(validationDomainService).checkOrderTable(any(), any(), any());
     }
 
 }

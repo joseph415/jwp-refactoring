@@ -3,9 +3,9 @@ package kitchenpos.menu.query.dto;
 import kitchenpos.menu.command.domain.menu.MenuProduct;
 
 public class MenuProductResponse {
-    private Long seq;
-    private Long productId;
-    private long quantity;
+    private final Long seq;
+    private final Long productId;
+    private final long quantity;
 
     public MenuProductResponse(Long seq, Long productId, long quantity) {
         this.seq = seq;

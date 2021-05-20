@@ -51,8 +51,7 @@ public class Order {
     }
 
     public static Order from(OrderRequest orderRequest) {
-        final List<OrderLineItem> orderLineItems = orderRequest.getOrderLineItemRequests()
-                .getOrderLineItems()
+        final List<OrderLineItem> orderLineItems = orderRequest.getOrderLineItems()
                 .stream()
                 .map(orderLineItemRequest -> new OrderLineItem(null,
                         orderLineItemRequest.getMenuId(), orderLineItemRequest.getQuantity()))
@@ -65,7 +64,7 @@ public class Order {
     }
 
     public void changeOrderStatus(String orderStatus) {
-        if (Objects.equals(OrderStatus.COMPLETION.name(), orderStatus)) {
+        if (Objects.equals(OrderStatus.COMPLETION.name(), this.orderStatus)) {
             throw new NotUpdateOrderStatus("주문이 완료된 상태입니다.");
         }
 

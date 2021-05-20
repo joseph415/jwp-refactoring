@@ -66,7 +66,7 @@ public class TableGroupService {
         final List<OrderTable> orderTables = orderTableRepository.findAllByTableGroupId(
                 tableGroupId);
 
-        validationDomainService.checkOrderTable(orderRepository, orderTables);
+        validationDomainService.checkOrderTables(orderRepository, orderTables);
         orderTables.forEach(orderTable -> orderTable.updateTableGroup(null, false));
 
         tableGroupRepository.deleteById(tableGroupId);

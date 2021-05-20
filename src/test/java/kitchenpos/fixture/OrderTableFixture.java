@@ -6,7 +6,7 @@ import kitchenpos.table.domain.ordertable.OrderTable;
 public class OrderTableFixture {
 
     public static final OrderTable ORDER_TABLE1 =
-            TestObjectUtils.createOrderTable(1L, null, 0, true);
+            TestObjectUtils.createOrderTable(1L, 1L, 1, true);
 
     public static final OrderTable ORDER_TABLE2 =
             TestObjectUtils.createOrderTable(2L, null, 0, true);
