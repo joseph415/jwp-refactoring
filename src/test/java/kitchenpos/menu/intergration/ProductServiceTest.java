@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.integration.IntegrationTest;
+import kitchenpos.common.integration.IntegrationTest;
 import kitchenpos.product.command.application.ProductService;
 import kitchenpos.product.command.domain.product.Product;
 import kitchenpos.product.command.domain.product.ProductRepository;

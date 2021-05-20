@@ -1,4 +1,4 @@
-package kitchenpos.integration;
+package kitchenpos.order.integration;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.common.TestObjectUtils;
+import kitchenpos.common.integration.IntegrationTest;
 import kitchenpos.fixture.OrderFixture;
 import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menu.command.domain.menu.MenuProduct;
@@ -23,11 +24,11 @@ import kitchenpos.order.domain.Order;
 import kitchenpos.order.domain.OrderDao;
 import kitchenpos.order.domain.OrderLineItem;
 import kitchenpos.order.domain.OrderStatus;
-import kitchenpos.table.domain.OrderTableDao;
+import kitchenpos.table.domain.ordertable.OrderTableRepository;
 
 class OrderServiceTest extends IntegrationTest {
     @Autowired
-    private OrderTableDao orderTableDao;
+    private OrderTableRepository orderTableRepository;
     @Autowired
     private MenuGroupRepository menuGroupRepository;
     @Autowired
@@ -51,7 +52,7 @@ class OrderServiceTest extends IntegrationTest {
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuRepository.save(menu);
-        orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
+        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
 
         Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, null, null, Collections.singletonList(orderLineItem));
@@ -82,7 +83,7 @@ class OrderServiceTest extends IntegrationTest {
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuRepository.save(menu);
-        orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
+        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         orderDao.save(createdOrder);
 
         final List<Order> orders = orderService.list();
@@ -107,7 +108,7 @@ class OrderServiceTest extends IntegrationTest {
 
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
         menuRepository.save(menu);
-        orderTableDao.save(TestObjectUtils.createOrderTable(null, null, 1, false));
+        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
         final Order order = orderDao.save(createdOrder);
 
         final Order changedOrder = orderService.changeOrderStatus(order.getId(),

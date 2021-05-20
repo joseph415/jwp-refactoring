@@ -1,7 +1,7 @@
 package kitchenpos.menu.intergration;
 
 import kitchenpos.common.TestObjectUtils;
-import kitchenpos.integration.IntegrationTest;
+import kitchenpos.common.integration.IntegrationTest;
 import kitchenpos.menu.command.application.MenuService;
 import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
 import kitchenpos.menu.query.dto.MenuResponse;

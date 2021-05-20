@@ -7,14 +7,6 @@ Content-Type: application/json
   "empty": true
 }
 
-###
-POST {{host}}/api/tables
-Content-Type: application/json
-
-{
-  "numberOfGuests": 1,
-  "empty": false
-}
 
 ###
 GET {{host}}/api/tables

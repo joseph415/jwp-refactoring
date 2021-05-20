@@ -1,4 +1,4 @@
-package kitchenpos.application;
+package kitchenpos.order.application;
 
 import static kitchenpos.fixture.OrderFixture.*;
 import static kitchenpos.fixture.OrderLineItemFixture.*;
@@ -25,7 +25,7 @@ import kitchenpos.order.domain.OrderDao;
 import kitchenpos.order.domain.OrderLineItem;
 import kitchenpos.order.domain.OrderLineItemDao;
 import kitchenpos.order.domain.OrderStatus;
-import kitchenpos.table.domain.OrderTableDao;
+import kitchenpos.table.domain.ordertable.OrderTableRepository;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -37,7 +37,7 @@ class OrderServiceTest {
     @Mock
     private OrderLineItemDao orderLineItemDao;
     @Mock
-    private OrderTableDao orderTableDao;
+    private OrderTableRepository orderTableRepository;
 
     @InjectMocks
     private OrderService orderService;
@@ -50,7 +50,7 @@ class OrderServiceTest {
                 Collections.singletonList(orderLineItem));
 
         when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
-        when(orderTableDao.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE5));
+        when(orderTableRepository.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE5));
         when(orderLineItemDao.save(any())).thenReturn(ORDER_LINE_ITEM1);
         when(orderDao.save(any())).thenReturn(ORDER1);
 
@@ -74,7 +74,7 @@ class OrderServiceTest {
                 Collections.singletonList(orderLineItem));
 
         when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
-        when(orderTableDao.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE1));
+        when(orderTableRepository.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE1));
 
         assertThatThrownBy(() -> orderService.create(createOrder))
                 .isInstanceOf(IllegalArgumentException.class);

@@ -12,8 +12,9 @@ import kitchenpos.menu.command.domain.menugroup.MenuGroup;
 import kitchenpos.order.domain.Order;
 import kitchenpos.order.domain.OrderLineItem;
 import kitchenpos.product.command.domain.product.Product;
-import kitchenpos.table.domain.OrderTable;
-import kitchenpos.table.domain.TableGroup;
+import kitchenpos.table.domain.ordertable.OrderTable;
+import kitchenpos.table.domain.tablegroup.OrderTableId;
+import kitchenpos.table.domain.tablegroup.TableGroup;
 
 public class TestObjectUtils {
     private TestObjectUtils() {
@@ -53,11 +54,8 @@ public class TestObjectUtils {
 
     public static OrderTable createOrderTable(Long id, Long tableGroupId, int numberOfGuests,
             boolean empty) {
-        OrderTable orderTable = new OrderTable();
+        OrderTable orderTable = new OrderTable(null, tableGroupId, numberOfGuests, empty);
         ReflectionTestUtils.setField(orderTable, "id", id);
-        ReflectionTestUtils.setField(orderTable, "tableGroupId", tableGroupId);
-        ReflectionTestUtils.setField(orderTable, "numberOfGuests", numberOfGuests);
-        ReflectionTestUtils.setField(orderTable, "empty", empty);
 
         return orderTable;
     }
@@ -86,11 +84,9 @@ public class TestObjectUtils {
     }
 
     public static TableGroup createTableGroup(Long id, LocalDateTime createdDate,
-            List<OrderTable> orderTables) {
-        TableGroup tableGroup = new TableGroup();
+            List<OrderTableId> orderTables) {
+        TableGroup tableGroup = new TableGroup(null, createdDate, orderTables);
         ReflectionTestUtils.setField(tableGroup, "id", id);
-        ReflectionTestUtils.setField(tableGroup, "createdDate", createdDate);
-        ReflectionTestUtils.setField(tableGroup, "orderTables", orderTables);
 
         return tableGroup;
     }

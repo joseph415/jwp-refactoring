@@ -23,7 +23,7 @@ public class OrderTableRequest {
         return numberOfGuests;
     }
 
-    public Boolean isEmpty() {
+    public Boolean getEmpty() {
         return empty;
     }
 }

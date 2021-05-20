@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import kitchenpos.integration.IntegrationTest;
+import kitchenpos.common.integration.IntegrationTest;
 import kitchenpos.menu.command.application.MenuGroupService;
 import kitchenpos.menu.query.dto.MenuGroupResponse;
 import kitchenpos.menu.ui.dto.MenuGroupRequest;
