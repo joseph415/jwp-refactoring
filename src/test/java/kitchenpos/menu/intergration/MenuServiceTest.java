@@ -1,22 +1,24 @@
 package kitchenpos.menu.intergration;
 
-import kitchenpos.common.TestObjectUtils;
-import kitchenpos.common.integration.IntegrationTest;
-import kitchenpos.menu.command.application.MenuService;
-import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
-import kitchenpos.menu.query.dto.MenuResponse;
-import kitchenpos.menu.ui.dto.MenuProductRequest;
-import kitchenpos.menu.ui.dto.MenuRequest;
-import kitchenpos.product.command.domain.product.ProductRepository;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import kitchenpos.common.TestObjectUtils;
+import kitchenpos.common.integration.IntegrationTest;
+import kitchenpos.menu.command.application.MenuResponse;
+import kitchenpos.menu.command.application.MenuService;
+import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
+import kitchenpos.menu.ui.dto.MenuProductRequest;
+import kitchenpos.menu.ui.dto.MenuRequest;
+import kitchenpos.product.command.domain.product.ProductRepository;
 
 class MenuServiceTest extends IntegrationTest {
 
@@ -36,9 +38,10 @@ class MenuServiceTest extends IntegrationTest {
         productRepository.save(
                 TestObjectUtils.createProduct(null, "양념 치킨", BigDecimal.valueOf(8000)));
 
-        MenuProductRequest menuProductRequest = new MenuProductRequest(Arrays.asList(1L, 2L), 2);
+        final List<MenuProductRequest> menuProducts = Arrays.asList(new MenuProductRequest(1L, 1),
+                new MenuProductRequest(2L, 1));
         MenuRequest menuRequest = new MenuRequest("두마리치킨",
-                BigDecimal.valueOf(16000), 1L, menuProductRequest);
+                BigDecimal.valueOf(16000), 1L, menuProducts);
 
         final MenuResponse menu = menuService.create(menuRequest);
 

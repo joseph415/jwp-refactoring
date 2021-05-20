@@ -1,16 +1,11 @@
 package kitchenpos.menu.command.application;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kitchenpos.menu.command.domain.menu.Menu;
-import kitchenpos.menu.command.domain.menu.MenuProduct;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
 import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
-import kitchenpos.menu.query.dto.MenuResponse;
 import kitchenpos.menu.ui.dto.MenuRequest;
 import kitchenpos.product.command.domain.product.ProductRepository;
 
@@ -33,18 +28,11 @@ public class MenuService {
         checkExistMenuGroup(menuRequest);
 
         Menu menu = Menu.of(
-                productRepository.findAllByIdIn(menuRequest.getMenuProducts().getProductId()),
+                productRepository.findAllByIdIn(menuRequest.toProductIds()),
                 menuRequest);
         final Menu savedMenu = menuRepository.save(menu);
-        final List<MenuProduct> menuProducts = menuRequest.getMenuProducts()
-                .getProductId()
-                .stream()
-                .map(productId -> new MenuProduct(savedMenu.getId(), productId,
-                        menuRequest.getMenuProducts().getQuantity()))
-                .collect(Collectors.toList());
-        savedMenu.updateMenuProducts(menuProducts);
 
-        return MenuResponse.of(savedMenu, menuProducts);
+        return MenuResponse.from(savedMenu);
     }
 
     private void checkExistMenuGroup(MenuRequest menuRequest) {

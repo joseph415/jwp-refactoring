@@ -3,7 +3,7 @@ package kitchenpos.table.application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.table.application.dto.ChangeEmptyRequest;
 import kitchenpos.table.application.dto.ChangeNumberOfGuestRequest;
 import kitchenpos.table.application.dto.OrderTableResponse;
@@ -16,14 +16,14 @@ import kitchenpos.table.ui.dto.OrderTableRequest;
 @Service
 public class TableService {
 
-    private final OrderDao orderDao;
+    private final OrderRepository orderRepository;
     private final OrderTableRepository orderTableRepository;
     private final ValidationDomainService validationDomainService;
 
-    public TableService(OrderDao orderDao,
+    public TableService(OrderRepository orderRepository,
             OrderTableRepository orderTableRepository,
             ValidationDomainService validationDomainService) {
-        this.orderDao = orderDao;
+        this.orderRepository = orderRepository;
         this.orderTableRepository = orderTableRepository;
         this.validationDomainService = validationDomainService;
     }
@@ -50,7 +50,7 @@ public class TableService {
             final ChangeEmptyRequest changeEmptyRequest) {
         final OrderTable orderTable = orderTableRepository.findById(orderTableId)
                 .orElseThrow(IllegalArgumentException::new);
-        validationDomainService.checkOrderTable(orderDao, orderTable);
+        validationDomainService.checkOrderTable(orderRepository, orderTable);
 
         orderTable.updateEmpty(changeEmptyRequest.getEmpty());
     }

@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import kitchenpos.menu.query.dto.MenuResponses;
+import kitchenpos.menu.query.dto.MenuViewResponses;
 
 @DataJpaTest
-public class JpaMenuDaoTest {
+class JpaMenuDaoTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
@@ -24,9 +24,8 @@ public class JpaMenuDaoTest {
 
     @Test
     void select() {
-        final MenuResponses select = jpaMenuDao.select();
+        final MenuViewResponses select = jpaMenuDao.select();
 
-        assertThat(select.getMenuResponses().size()).isEqualTo(6);
-        assertThat(select.getMenuResponses().get(0).getMenuProductResponse().size()).isEqualTo(1);
+        assertThat(select.getMenuViewResponses().size()).isEqualTo(6);
     }
 }

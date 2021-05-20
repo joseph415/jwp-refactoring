@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,16 +14,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import kitchenpos.common.TestObjectUtils;
 import kitchenpos.common.integration.IntegrationTest;
-import kitchenpos.fixture.OrderFixture;
-import kitchenpos.menu.command.domain.menu.Menu;
 import kitchenpos.menu.command.domain.menu.MenuProduct;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
 import kitchenpos.menu.command.domain.menugroup.MenuGroupRepository;
-import kitchenpos.order.OrderService;
+import kitchenpos.order.application.OrderService;
+import kitchenpos.order.application.dto.OrderResponse;
+import kitchenpos.order.application.dto.OrderResponses;
 import kitchenpos.order.domain.Order;
-import kitchenpos.order.domain.OrderDao;
 import kitchenpos.order.domain.OrderLineItem;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.order.domain.OrderStatus;
+import kitchenpos.order.ui.dto.ChangeOrderStatusRequest;
+import kitchenpos.order.ui.dto.OrderLineItemRequest;
+import kitchenpos.order.ui.dto.OrderLineItemRequests;
+import kitchenpos.order.ui.dto.OrderRequest;
+import kitchenpos.product.command.domain.product.Product;
+import kitchenpos.product.command.domain.product.ProductRepository;
 import kitchenpos.table.domain.ordertable.OrderTableRepository;
 
 class OrderServiceTest extends IntegrationTest {
@@ -34,7 +40,9 @@ class OrderServiceTest extends IntegrationTest {
     @Autowired
     private MenuRepository menuRepository;
     @Autowired
-    private OrderDao orderDao;
+    private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private OrderService orderService;
@@ -42,22 +50,19 @@ class OrderServiceTest extends IntegrationTest {
     @DisplayName("1 개 이상의 등록된 메뉴로 주문을 등록할 수 있다.")
     @Test
     void createTest() {
-        final MenuProduct friedChicken =
-                TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);
-        final MenuProduct seasoningChicken =
-                TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
-        final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L);
-        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
-
+        productRepository.saveAll(Arrays.asList(new Product("후라이드", BigDecimal.valueOf(16000)),
+                new Product("양념", BigDecimal.valueOf(16000))));
         menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuRepository.save(menu);
+        menuRepository.save(
+                TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000), 1L,
+                        Arrays.asList(new MenuProduct(null, 1L, 1L),
+                                new MenuProduct(null, 2L, 1L))));
         orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
 
-        Order createdOrder = TestObjectUtils.createOrder(
-                null, 1L, null, null, Collections.singletonList(orderLineItem));
+        OrderRequest createOrder = new OrderRequest(1L, new OrderLineItemRequests(
+                Collections.singletonList(new OrderLineItemRequest(1L, 1L))));
 
-        final Order order = orderService.create(createdOrder);
+        final OrderResponse order = orderService.create(createOrder);
 
         assertAll(
                 () -> assertThat(order.getId()).isNotNull(),
@@ -70,49 +75,48 @@ class OrderServiceTest extends IntegrationTest {
     @DisplayName("주문의 목록을 조회할 수 있다.")
     @Test
     void listTest() {
-        final MenuProduct friedChicken =
-                TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);
-        final MenuProduct seasoningChicken =
-                TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
-        final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L);
-        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
+        productRepository.saveAll(Arrays.asList(new Product("후라이드", BigDecimal.valueOf(16000)),
+                new Product("양념", BigDecimal.valueOf(16000))));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuRepository.save(
+                TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000), 1L,
+                        Arrays.asList(new MenuProduct(null, 1L, 1L),
+                                new MenuProduct(null, 2L, 1L))));
+        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
+
+        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(null, 1L, 1L);
         Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
-        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuRepository.save(menu);
-        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
-        orderDao.save(createdOrder);
+        orderRepository.save(createdOrder);
 
-        final List<Order> orders = orderService.list();
+        final OrderResponses orders = orderService.list();
 
-        assertThat(orders.size()).isEqualTo(1);
-
+        assertThat(orders.getOrderResponses().size()).isEqualTo(1);
     }
 
     @DisplayName("주문 상태를 변경할 수 있다.")
     @Test
     void changeOrderStatusTest() {
-        final MenuProduct friedChicken =
-                TestObjectUtils.createMenuProduct(1L, null, 1L, 1L);
-        final MenuProduct seasoningChicken =
-                TestObjectUtils.createMenuProduct(2L, null, 2L, 1L);
-        final Menu menu = TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000),
-                1L);
-        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1L);
+        productRepository.saveAll(Arrays.asList(new Product("후라이드", BigDecimal.valueOf(16000)),
+                new Product("양념", BigDecimal.valueOf(16000))));
+        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
+        menuRepository.save(
+                TestObjectUtils.createMenu(null, "두마리치킨", BigDecimal.valueOf(16000), 1L,
+                        Arrays.asList(new MenuProduct(null, 1L, 1L),
+                                new MenuProduct(null, 2L, 1L))));
+        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
+
+        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(null, 1L, 1L);
         Order createdOrder = TestObjectUtils.createOrder(
                 null, 1L, OrderStatus.COOKING.name(), LocalDateTime.now(),
                 Collections.singletonList(orderLineItem));
 
-        menuGroupRepository.save(TestObjectUtils.createMenuGroup(null, "두마리치킨"));
-        menuRepository.save(menu);
-        orderTableRepository.save(TestObjectUtils.createOrderTable(null, null, 1, false));
-        final Order order = orderDao.save(createdOrder);
+        final Order order = orderRepository.save(createdOrder);
 
-        final Order changedOrder = orderService.changeOrderStatus(order.getId(),
-                OrderFixture.CHANGING_MEAL_ORDER);
+        final OrderResponse changedOrder = orderService.changeOrderStatus(order.getId(),
+                new ChangeOrderStatusRequest(OrderStatus.MEAL.name()));
 
         assertThat(changedOrder.getOrderStatus()).isEqualTo(OrderStatus.MEAL.name());
     }

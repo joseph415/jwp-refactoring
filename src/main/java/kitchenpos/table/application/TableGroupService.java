@@ -6,7 +6,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.table.application.dto.TableGroupRequest;
 import kitchenpos.table.application.dto.TableGroupResponse;
 import kitchenpos.table.domain.ValidationDomainService;
@@ -17,16 +17,16 @@ import kitchenpos.table.domain.tablegroup.TableGroupRepository;
 
 @Service
 public class TableGroupService {
-    private final OrderDao orderDao;
+    private final OrderRepository orderRepository;
     private final OrderTableRepository orderTableRepository;
     private final TableGroupRepository tableGroupRepository;
     private final ValidationDomainService validationDomainService;
 
-    public TableGroupService(OrderDao orderDao,
+    public TableGroupService(OrderRepository orderRepository,
             OrderTableRepository orderTableRepository,
             TableGroupRepository tableGroupRepository,
             ValidationDomainService validationDomainService) {
-        this.orderDao = orderDao;
+        this.orderRepository = orderRepository;
         this.orderTableRepository = orderTableRepository;
         this.tableGroupRepository = tableGroupRepository;
         this.validationDomainService = validationDomainService;
@@ -66,7 +66,7 @@ public class TableGroupService {
         final List<OrderTable> orderTables = orderTableRepository.findAllByTableGroupId(
                 tableGroupId);
 
-        validationDomainService.checkOrderTable(orderDao, orderTables);
+        validationDomainService.checkOrderTable(orderRepository, orderTables);
         orderTables.forEach(orderTable -> orderTable.updateTableGroup(null, false));
 
         tableGroupRepository.deleteById(tableGroupId);

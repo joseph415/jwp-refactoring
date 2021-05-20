@@ -2,6 +2,8 @@ package kitchenpos.menu.command.domain.menu;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,32 +41,39 @@ public class Menu {
     protected Menu() {
     }
 
-    public Menu(String name, BigDecimal price, Long menuGroupId) {
-        this.id = null;
+    public Menu(Long id, String name, BigDecimal price, Long menuGroupId,
+            List<MenuProduct> menuProducts) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.menuGroupId = menuGroupId;
+        this.menuProducts = menuProducts;
     }
 
     public static Menu of(List<Product> products, MenuRequest menuRequest) {
+        Map<Long, Long> menuProduct = menuRequest.toMapProductQuantity();
+
         final BigDecimal sum = products.stream()
-                .map(Product::getPrice)
-                .reduce(BigDecimal.ZERO,
-                        (bigDecimal, bigDecimal2) -> bigDecimal.add(bigDecimal2)
-                                .multiply(BigDecimal.valueOf(
-                                        menuRequest.getMenuProducts().getQuantity()))
-                );
+                .map(product -> product.getPrice()
+                        .multiply(BigDecimal.valueOf(menuProduct.get(product.getId()))))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         if (menuRequest.getPrice().compareTo(sum) > 0) {
             throw new NotCreateMenu("메뉴에 속한 각 상품 금액의 합은 메뉴의 가격보다 크거나 같아야 합니다.");
         }
 
-        return new Menu(menuRequest.getName(), menuRequest.getPrice(),
-                menuRequest.getMenuGroupId());
-    }
+        final List<MenuProduct> menuProducts = menuRequest.getMenuProducts()
+                .stream()
+                .map(menuProductRequest -> new MenuProduct(null,
+                        menuProductRequest.getProductId(),
+                        menuProductRequest.getQuantity()))
+                .collect(Collectors.toList());
 
-    public void updateMenuProducts(List<MenuProduct> menuProducts) {
-        this.menuProducts = menuProducts;
+        return new Menu(null,
+                menuRequest.getName(),
+                menuRequest.getPrice(),
+                menuRequest.getMenuGroupId(),
+                menuProducts);
     }
 
     public Long getId() {

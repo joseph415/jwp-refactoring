@@ -12,10 +12,7 @@ public class MenuProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
-    @Column(name = "menu_id")
-    private Long menuId;
-
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Long productId;
 
     private long quantity;
@@ -23,19 +20,14 @@ public class MenuProduct {
     protected MenuProduct() {
     }
 
-    public MenuProduct(Long menuId, Long productId, long quantity) {
-        this.seq = null;
-        this.menuId = menuId;
+    public MenuProduct(Long seq, Long productId, long quantity) {
+        this.seq = seq;
         this.productId = productId;
         this.quantity = quantity;
     }
 
     public Long getSeq() {
         return seq;
-    }
-
-    public Long getMenuId() {
-        return menuId;
     }
 
     public Long getProductId() {

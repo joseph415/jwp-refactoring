@@ -21,32 +21,30 @@ public class TestObjectUtils {
     }
 
     public static Product createProduct(Long id, String name, BigDecimal price) {
-        Product product = new Product();
+        Product product = new Product(name, price);
         ReflectionTestUtils.setField(product, "id", id);
-        ReflectionTestUtils.setField(product, "name", name);
-        ReflectionTestUtils.setField(product, "price", price);
 
         return product;
     }
 
     public static MenuGroup createMenuGroup(Long id, String name) {
-        MenuGroup menuGroup = new MenuGroup();
+        MenuGroup menuGroup = new MenuGroup(name);
         ReflectionTestUtils.setField(menuGroup, "id", id);
-        ReflectionTestUtils.setField(menuGroup, "name", name);
 
         return menuGroup;
     }
 
-    public static Menu createMenu(Long id, String name, BigDecimal price, Long menuGroupId) {
-        Menu menu = new Menu(name, price, menuGroupId);
+    public static Menu createMenu(Long id, String name, BigDecimal price, Long menuGroupId,
+            List<MenuProduct> menuProducts) {
+        Menu menu = new Menu(null, name, price, menuGroupId, menuProducts);
         ReflectionTestUtils.setField(menu, "id", id);
 
         return menu;
     }
 
-    public static MenuProduct createMenuProduct(Long seq, Long menuId, Long productId,
+    public static MenuProduct createMenuProduct(Long seq, Long productId,
             Long quantity) {
-        MenuProduct menuProduct = new MenuProduct(menuId, productId, quantity);
+        MenuProduct menuProduct = new MenuProduct(null, productId, quantity);
         ReflectionTestUtils.setField(menuProduct, "seq", seq);
 
         return menuProduct;
@@ -62,23 +60,16 @@ public class TestObjectUtils {
 
     public static Order createOrder(Long id, Long orderTableId, String orderStatus,
             LocalDateTime orderedTime, List<OrderLineItem> orderLineItems) {
-        Order order = new Order();
+        Order order = new Order(null, orderTableId, orderStatus, orderedTime, orderLineItems);
         ReflectionTestUtils.setField(order, "id", id);
-        ReflectionTestUtils.setField(order, "orderTableId", orderTableId);
-        ReflectionTestUtils.setField(order, "orderStatus", orderStatus);
-        ReflectionTestUtils.setField(order, "orderedTime", orderedTime);
-        ReflectionTestUtils.setField(order, "orderLineItems", orderLineItems);
 
         return order;
     }
 
-    public static OrderLineItem createOrderLineItem(Long seq, Long orderId, Long menuId,
+    public static OrderLineItem createOrderLineItem(Long seq, Long menuId,
             long quantity) {
-        OrderLineItem orderLineItem = new OrderLineItem();
+        OrderLineItem orderLineItem = new OrderLineItem(null, menuId, quantity);
         ReflectionTestUtils.setField(orderLineItem, "seq", seq);
-        ReflectionTestUtils.setField(orderLineItem, "orderId", orderId);
-        ReflectionTestUtils.setField(orderLineItem, "menuId", menuId);
-        ReflectionTestUtils.setField(orderLineItem, "quantity", quantity);
 
         return orderLineItem;
     }

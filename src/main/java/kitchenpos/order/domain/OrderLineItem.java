@@ -6,49 +6,42 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import kitchenpos.order.ui.dto.OrderLineItemRequest;
+
 @Entity
 public class OrderLineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
-    @Column(name = "order_id")
-    private Long orderId;
-
-    @Column(name = "menu_id")
+    @Column(name = "menu_id", nullable = false)
     private Long menuId;
 
     private long quantity;
 
+    protected OrderLineItem() {
+    }
+
+    public OrderLineItem(Long seq, Long menuId, long quantity) {
+        this.seq = seq;
+        this.menuId = menuId;
+        this.quantity = quantity;
+    }
+
+    public static OrderLineItem from(OrderLineItemRequest orderLineItemRequest) {
+        return new OrderLineItem(null, orderLineItemRequest.getMenuId(),
+                orderLineItemRequest.getQuantity());
+    }
+
     public Long getSeq() {
         return seq;
-    }
-
-    public void setSeq(final Long seq) {
-        this.seq = seq;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(final Long orderId) {
-        this.orderId = orderId;
     }
 
     public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(final Long menuId) {
-        this.menuId = menuId;
-    }
-
     public long getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(final long quantity) {
-        this.quantity = quantity;
     }
 }

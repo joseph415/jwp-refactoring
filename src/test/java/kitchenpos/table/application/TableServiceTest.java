@@ -15,7 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.table.application.dto.ChangeEmptyRequest;
 import kitchenpos.table.application.dto.ChangeNumberOfGuestRequest;
 import kitchenpos.table.application.dto.OrderTableResponses;
@@ -26,7 +26,7 @@ import kitchenpos.table.ui.dto.OrderTableRequest;
 class TableServiceTest {
 
     @Mock
-    private OrderDao orderDao;
+    private OrderRepository orderRepository;
     @Mock
     private OrderTableRepository orderTableRepository;
 
@@ -88,7 +88,8 @@ class TableServiceTest {
     void notChangeEmptyTest_when_orderStatusIsMEALAndCOOKING() {
         ChangeEmptyRequest changeEmptyRequest = new ChangeEmptyRequest(false);
         when(orderTableRepository.findById(any())).thenReturn(Optional.of(ORDER_TABLE1));
-        when(orderDao.existsByOrderTableIdAndOrderStatusIn(anyLong(), anyList())).thenReturn(true);
+        when(orderRepository.existsByOrderTableIdAndOrderStatusIn(anyLong(), anyList())).thenReturn(
+                true);
 
         assertThatThrownBy(
                 () -> tableService.changeEmpty(ORDER_TABLE1.getId(), changeEmptyRequest)

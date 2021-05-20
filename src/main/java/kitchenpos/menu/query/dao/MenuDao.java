@@ -1,7 +1,7 @@
 package kitchenpos.menu.query.dao;
 
-import kitchenpos.menu.query.dto.MenuResponses;
+import kitchenpos.menu.query.dto.MenuViewResponses;
 
 public interface MenuDao {
-    MenuResponses select();
+    MenuViewResponses select();
 }

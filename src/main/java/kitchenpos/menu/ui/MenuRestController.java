@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kitchenpos.menu.command.application.MenuResponse;
 import kitchenpos.menu.command.application.MenuService;
 import kitchenpos.menu.infra.JpaMenuDao;
-import kitchenpos.menu.query.dto.MenuResponse;
-import kitchenpos.menu.query.dto.MenuResponses;
+import kitchenpos.menu.query.dto.MenuViewResponses;
 import kitchenpos.menu.ui.dto.MenuRequest;
 
 @RestController
@@ -38,7 +38,7 @@ public class MenuRestController {
     }
 
     @GetMapping("/api/menus")
-    public ResponseEntity<MenuResponses> list() {
+    public ResponseEntity<MenuViewResponses> list() {
         return ResponseEntity.ok()
                 .body(jpaMenuDao.select());
     }

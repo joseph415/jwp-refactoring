@@ -17,7 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.order.domain.OrderDao;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.table.application.dto.TableGroupRequest;
 import kitchenpos.table.application.dto.TableGroupResponse;
 import kitchenpos.table.domain.ordertable.OrderTableRepository;
@@ -28,7 +28,7 @@ import kitchenpos.table.domain.tablegroup.TableGroupRepository;
 class TableGroupServiceTest {
 
     @Mock
-    private OrderDao orderDao;
+    private OrderRepository orderRepository;
     @Mock
     private OrderTableRepository orderTableRepository;
     @Mock
@@ -101,7 +101,7 @@ class TableGroupServiceTest {
     // @DisplayName("단체 지정된 주문 테이블의 주문 상태가 조리 또는 식사인 경우 단체 지정을 해지할 수 없다.")
     // @Test
     // void notUngroupTest_when_orderStatusIsMEALAndCooking() {
-    //     when(orderDao.existsByOrderTableIdInAndOrderStatusIn(anyList(), anyList())).thenReturn(
+    //     when(orderRepository.existsByOrderTableIdInAndOrderStatusIn(anyList(), anyList())).thenReturn(
     //             true);
     //
     //     assertThatThrownBy(() -> tableGroupService.ungroup(TABLE_GROUP1.getId()))

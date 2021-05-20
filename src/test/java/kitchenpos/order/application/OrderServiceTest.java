@@ -1,7 +1,6 @@
 package kitchenpos.order.application;
 
 import static kitchenpos.fixture.OrderFixture.*;
-import static kitchenpos.fixture.OrderLineItemFixture.*;
 import static kitchenpos.fixture.OrderTableFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,14 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import kitchenpos.common.TestObjectUtils;
 import kitchenpos.menu.command.domain.menu.MenuRepository;
-import kitchenpos.order.OrderService;
-import kitchenpos.order.domain.Order;
-import kitchenpos.order.domain.OrderDao;
-import kitchenpos.order.domain.OrderLineItem;
-import kitchenpos.order.domain.OrderLineItemDao;
+import kitchenpos.order.application.dto.OrderResponse;
+import kitchenpos.order.domain.OrderRepository;
 import kitchenpos.order.domain.OrderStatus;
+import kitchenpos.order.ui.dto.ChangeOrderStatusRequest;
+import kitchenpos.order.ui.dto.OrderLineItemRequest;
+import kitchenpos.order.ui.dto.OrderLineItemRequests;
+import kitchenpos.order.ui.dto.OrderRequest;
 import kitchenpos.table.domain.ordertable.OrderTableRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,9 +32,7 @@ class OrderServiceTest {
     @Mock
     private MenuRepository menuRepository;
     @Mock
-    private OrderDao orderDao;
-    @Mock
-    private OrderLineItemDao orderLineItemDao;
+    private OrderRepository orderRepository;
     @Mock
     private OrderTableRepository orderTableRepository;
 
@@ -45,22 +42,19 @@ class OrderServiceTest {
     @DisplayName("1 개 이상의 등록된 메뉴로 주문을 등록할 수 있다.")
     @Test
     void createTest() {
-        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1);
-        Order createOrder = TestObjectUtils.createOrder(null, 5L, null, null,
-                Collections.singletonList(orderLineItem));
+        OrderRequest createOrder = new OrderRequest(5L, new OrderLineItemRequests(
+                Collections.singletonList(new OrderLineItemRequest(1L, 3L))));
 
         when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
         when(orderTableRepository.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE5));
-        when(orderLineItemDao.save(any())).thenReturn(ORDER_LINE_ITEM1);
-        when(orderDao.save(any())).thenReturn(ORDER1);
+        when(orderRepository.save(any())).thenReturn(ORDER1);
 
-        Order savedOrder = orderService.create(createOrder);
+        OrderResponse savedOrder = orderService.create(createOrder);
         assertAll(
                 () -> assertThat(savedOrder.getId()).isEqualTo(1L),
                 () -> assertThat(savedOrder.getOrderStatus()).isEqualTo(OrderStatus.COOKING.name()),
                 () -> assertThat(savedOrder.getOrderTableId()).isEqualTo(5L),
                 () -> assertThat(savedOrder.getOrderLineItems().get(0).getSeq()).isEqualTo(1L),
-                () -> assertThat(savedOrder.getOrderLineItems().get(0).getOrderId()).isEqualTo(1L),
                 () -> assertThat(savedOrder.getOrderLineItems().get(0).getMenuId()).isEqualTo(1L),
                 () -> assertThat(savedOrder.getOrderLineItems().get(0).getQuantity()).isEqualTo(1L)
         );
@@ -69,9 +63,8 @@ class OrderServiceTest {
     @DisplayName("빈 테이블에는 주문을 등록할 수 없다")
     @Test
     void notCreateTest_when_emptyTable() {
-        OrderLineItem orderLineItem = TestObjectUtils.createOrderLineItem(1L, null, 1L, 1);
-        Order createOrder = TestObjectUtils.createOrder(null, 1L, null, null,
-                Collections.singletonList(orderLineItem));
+        OrderRequest createOrder = new OrderRequest(5L, new OrderLineItemRequests(
+                Collections.singletonList(new OrderLineItemRequest(1L, 3L))));
 
         when(menuRepository.countByIdIn(anyList())).thenReturn(1L);
         when(orderTableRepository.findById(anyLong())).thenReturn(Optional.of(ORDER_TABLE1));
@@ -83,21 +76,20 @@ class OrderServiceTest {
     @DisplayName("주문의 목록을 조회할 수 있다.")
     @Test
     void listTest() {
-        when(orderDao.findAll()).thenReturn(ORDERS);
+        when(orderRepository.findAll()).thenReturn(ORDERS);
 
-        assertAll(
-                () -> assertThat(orderService.list().size()).isEqualTo(1),
-                () -> assertThat(orderService.list().get(0).getId()).isEqualTo(1L)
-        );
+        assertThat(orderService.list().getOrderResponses().size()).isEqualTo(1);
     }
 
     @DisplayName("주문 상태를 변경할 수 있다.")
     @Test
     void changeOrderStatusTest() {
-        when(orderDao.findById(any())).thenReturn(Optional.of(ORDER3));
-        when(orderLineItemDao.findAllByOrderId(any())).thenReturn(ORDER_LINE_ITEMS3);
+        ChangeOrderStatusRequest changeOrderStatusRequest = new ChangeOrderStatusRequest(
+                OrderStatus.MEAL.name());
 
-        Order savedOrder = orderService.changeOrderStatus(3L, CHANGING_MEAL_ORDER);
+        when(orderRepository.findById(any())).thenReturn(Optional.of(ORDER3));
+
+        OrderResponse savedOrder = orderService.changeOrderStatus(3L, changeOrderStatusRequest);
 
         assertThat(savedOrder.getOrderStatus()).isEqualTo(OrderStatus.MEAL.name());
     }
@@ -105,9 +97,12 @@ class OrderServiceTest {
     @DisplayName("주문 상태가 계산 완료인 경우 변경할 수 없다.")
     @Test
     void notChangeOrderStatusTest_when_OrderStatusIsComplication() {
-        when(orderDao.findById(any())).thenReturn(Optional.of(ORDER2));
+        ChangeOrderStatusRequest changeOrderStatusRequest = new ChangeOrderStatusRequest(
+                OrderStatus.MEAL.name());
 
-        assertThatThrownBy(() -> orderService.changeOrderStatus(2L, CHANGING_MEAL_ORDER))
+        when(orderRepository.findById(any())).thenReturn(Optional.of(ORDER2));
+
+        assertThatThrownBy(() -> orderService.changeOrderStatus(2L, changeOrderStatusRequest))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

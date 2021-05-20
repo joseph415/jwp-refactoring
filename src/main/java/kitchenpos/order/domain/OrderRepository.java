@@ -1,13 +1,13 @@
 package kitchenpos.order.domain;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface OrderDao {
-    Order save(Order entity);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-    Optional<Order> findById(Long id);
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
+    @Query("select o from Order o join fetch o.orderLineItems")
     List<Order> findAll();
 
     boolean existsByOrderTableIdAndOrderStatusIn(Long orderTableId, List<String> orderStatuses);

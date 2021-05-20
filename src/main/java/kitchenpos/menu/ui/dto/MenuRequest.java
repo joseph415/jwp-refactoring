@@ -1,6 +1,9 @@
 package kitchenpos.menu.ui.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,17 +17,29 @@ public class MenuRequest {
     @NotNull
     private Long menuGroupId;
     @NotNull(message = "빈값 안됨")
-    private MenuProductRequest menuProducts;
+    private List<MenuProductRequest> menuProducts;
 
     private MenuRequest() {
     }
 
     public MenuRequest(String name, BigDecimal price, Long menuGroupId,
-            MenuProductRequest menuProducts) {
+            List<MenuProductRequest> menuProducts) {
         this.name = name;
         this.price = price;
         this.menuGroupId = menuGroupId;
         this.menuProducts = menuProducts;
+    }
+
+    public List<Long> toProductIds() {
+        return menuProducts.stream()
+                .map(MenuProductRequest::getProductId)
+                .collect(Collectors.toList());
+    }
+
+    public Map<Long, Long> toMapProductQuantity() {
+        return menuProducts.stream()
+                .collect(Collectors.toMap(MenuProductRequest::getProductId,
+                        MenuProductRequest::getQuantity));
     }
 
     public String getName() {
@@ -39,7 +54,7 @@ public class MenuRequest {
         return menuGroupId;
     }
 
-    public MenuProductRequest getMenuProducts() {
+    public List<MenuProductRequest> getMenuProducts() {
         return menuProducts;
     }
 }

@@ -21,7 +21,7 @@ public class Product {
     @Column(nullable = false, scale = 2)
     private BigDecimal price;
 
-    public Product() {
+    protected Product() {
     }
 
     public Product(String name, BigDecimal price) {
